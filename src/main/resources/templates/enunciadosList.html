@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de enunciados</title>
+    <link rel="stylesheet" th:href="@{'/vendor/bootstrap/css/bootstrap.min.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/font-awesome/css/font-awesome.min.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/linearicons/style.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/metisMenu/metisMenu.css'}">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" th:href="@{'/css/main.css'}">
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+    <!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="76x76" th:href="@{'/imgages/apple-icon.png'}">
+    <link rel="icon" type="image/png" sizes="96x96" th:href="@{'/imgages/favicon.png'}">
+</head>
+<body>
+<div id="wrapper">
+    <th:block th:include="header::header"></th:block>
+
+    <div id="main-content">
+        <div class="container-fluid">
+            <div class="section-heading">
+                <h1 class="page-title">Lista de enunciados</h1>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel-content">
+
+                        <div th:if="${mensaje != null}">
+                            <div class="alert alert-success" th:text="${mensaje}" role="alert"></div>
+                        </div>
+
+                        <a th:href="@{'/enunciados/form'}" class="btn btn-success" role="button"
+                           title="Agregar Grado">Agregar enunciado</a><br><br>
+
+                        <h3 class="heading"><i class="fa fa-square"></i> Detalles</h3>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped no-margin">
+                                <thead>
+                                <tr>
+                                    <th>Texto</th>
+                                    <th>Distractor</th>
+                                    <th>Estado</th>
+                                    <th>Fecha actualización</th>
+                                    <th>Acciones</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="enunciado : ${enunciados}">
+                                    <td th:text="${enunciado.texto}"></td>
+                                    <td th:text="${enunciado.distractor}"></td>
+                                    <td th:text="${enunciado.estado == 1 ? 'Activo' : 'Inactivo'}"></td>
+                                    <td th:text="${enunciado.updatedAt}"></td>
+                                    <td>
+                                        <a th:href="@{'/enunciados/edit/' + ${enunciado.idEnunciado}}"
+                                           class="btn btn-success btn-sm"
+                                           role="button"
+                                           title="Edit"><span
+                                                class="glyphicon glyphicon-pencil"></span></a>
+                                        <a th:href="@{'/enunciados/delete/' + ${enunciado.idEnunciado}}"
+                                           onclick="return confirm('¿Borrar enunciado?')" class="btn btn-danger btn-sm"
+                                           role="button" title="Eliminar"><span
+                                                class="glyphicon glyphicon-trash"></span></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="table-pagination">
+                                <ul class="pagination borderless">
+                                    <li th:class="${enunciados.number eq 0} ? 'disabled' : ''">
+                                        <a th:if="${not enunciados.first}"
+                                           th:href="@{${'/enunciados/index/'}(page=${enunciados.number - 1},size=${enunciados.size})}">Atrás</a>
+                                        <a th:if="${enunciados.first}" href="javascript:void(0);">Atrás</a>
+                                    </li>
+
+                                    <li th:each="pageNo : ${#numbers.sequence(0, enunciados.totalPages - 1)}"
+                                        th:class="${enunciados.number eq pageNo}? 'active' : ''">
+                                        <a th:if="${enunciados.number  eq pageNo}" href="javascript:void(0);">
+                                            <span th:text="${pageNo + 1}"></span>
+                                        </a>
+                                        <a th:class="${enunciados.size == 0 ? 'hidden' : 'visible'}" th:if="${not (enunciados.number  eq pageNo)}"
+                                           th:href="@{${'/enunciados/index/'}(page=${pageNo},size=${enunciados.size})}">
+                                            <span  th:text="${pageNo + 1}"></span>
+                                        </a>
+
+                                    </li>
+                                    <li th:class="${enunciados.number + 1 ge enunciados.totalPages} ? 'disabled' : ''">
+                                        <a th:if="${not enunciados.last}"
+                                           th:href="@{${'/enunciados/index/'}(page=${enunciados.number+1},size=${enunciados.size})}">Siguiente</a>
+                                        <a th:if="${enunciados.last}" href="javascript:void(0);">Siguiente</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

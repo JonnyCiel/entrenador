@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+</head>
+<body>
+
+
+<div th:fragment="header">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-btn">
+                <button type="button" class="btn-toggle-offcanvas"><i class="lnr lnr-menu"></i></button>
+            </div>
+            <!-- logo -->
+            <div class="navbar-brand">
+                <a th:href="@{'/'}"><img alt="SigaWeb logo" class="img-responsive"
+                                         th:src="@{'/images/logo-siga.png'}"></a>
+            </div>
+            <!-- end logo -->
+            <div class="navbar-right">
+            </div>
+        </div>
+    </nav>
+    <!-- END NAVBAR -->
+    <!-- LEFT SIDEBAR -->
+    <div id="left-sidebar" class="sidebar">
+        <button type="button" class="btn btn-xs btn-link btn-toggle-fullwidth">
+            <span class="sr-only">Toggle Fullwidth</span>
+            <i class="fa fa-angle-left"></i>
+        </button>
+        <div class="sidebar-scroll">
+            <div class="user-account">
+                <img th:src="@{'/images/perfil.jpeg'}" class="img-responsive img-circle user-photo"
+                     alt="User Profile Picture">
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle user-name" data-toggle="dropdown">Hola, <strong
+                            th:text="${usuario.nombre1 + ' ' + usuario.apellido1}"></strong> <i
+                            class="fa fa-caret-down"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-right account">
+                        <li><a href="#">Perfil</a></li>
+                        <li class="divider"></li>
+                        <li><a th:href="@{'/auth/logout'}">Cerrar sesión</a></li>
+                    </ul>
+                </div>
+            </div>
+            <nav id="left-sidebar-nav" class="sidebar-nav">
+                <ul id="main-menu" class="metismenu">
+                    <li class="active"><a th:href="@{'/'}"><i class="lnr lnr-home"></i> <span>Inicio</span></a></li>
+                    <li class="">
+                        <a href="#uiElements" class="has-arrow" aria-expanded="false"><i
+                                class="fa fa-question-circle-o fa-3x"></i>
+                            <span>Preguntas</span></a>
+                        <ul aria-expanded="true">
+                            <li class=""><a href="ui-tabs.html">Preguntas</a></li>
+                            <li class=""><a th:href="@{'/enunciados/index'}">Enunciados</a></li>
+                            <li class=""><a th:href="@{'/tipopreguntas/index'}">Tipo de preguntas</a></li>
+                            <li class=""><a href="ui-icons.html"><span>Respuestas</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="">
+                        <a href="#subPages" class="has-arrow" aria-expanded="false"><i
+                                class="fa fa-file-text-o fa-3x"></i>
+                            <span>Evaluaciones</span></a>
+                        <ul aria-expanded="true">
+                            <li class=""><a th:href="@{'/evaluaciones/index'}">Evaluaciones</a></li>
+                            <li class=""><a th:href="@{'/tipoevaluaciones/index'}">Tipo de evaluaciones</a></li>
+                        </ul>
+                    </li>
+                    <li class=""><a th:href="@{'/grados/index/'}"><i class="fa fa-child fa-3x"></i>
+                        <span>Grados</span></a></li>
+                    <li class=""><a th:href="@{'/competencias/index'}"><i class="fa fa-puzzle-piece fa-3x"></i>
+                        <span>Competencias</span></a></li>
+                    <li class="">
+                        <a href="#forms" class="has-arrow" aria-expanded="false"><i class="fa fa-cubes fa-3x"></i>
+                            <span>Componentes</span></a>
+                        <ul aria-expanded="true">
+                            <li class=""><a th:href="@{'/componentes/index'}">Componentes</a></li>
+                            <li class=""><a th:href="@{'/areas/index'}">Áreas</a></li>
+                        </ul>
+                    </li>
+                    <li class="">
+                        <a href="#" class="has-arrow" aria-expanded="false"><i class="fa fa-users fa-3x"></i>
+                            <span>Usuarios</span></a>
+                        <ul aria-expanded="true">
+                            <li class=""><a href="#">Usuarios</a></li>
+                            <li class=""><a href="#">Cursos</a></li>
+                            <li class=""><a href="#">Roles</a></li>
+                        </ul>
+                    </li>
+
+
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- END LEFT SIDEBAR -->
+
+
+    <script th:src="@{'/vendor/jquery/jquery.min.js'}"></script>
+    <script th:src="@{'/vendor/bootstrap/js/bootstrap.min.js'}"></script>
+    <script th:src="@{'/vendor/metisMenu/metisMenu.js'}"></script>
+    <script th:src="@{'/vendor/jquery-slimscroll/jquery.slimscroll.min.js'}"></script>
+    <script th:src="@{'/scripts/common.js'}"></script>
+</div>
+
+</body>
+</html>

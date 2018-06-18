@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" class="fullscreen-bg" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Error en el servidor</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<!-- VENDOR CSS -->
+	<link rel="stylesheet" th:href="@{'/vendor/bootstrap/css/bootstrap.min.css'}">
+	<link rel="stylesheet" th:href="@{'/vendor/font-awesome/css/font-awesome.min.css'}">
+	<!-- MAIN CSS -->
+	<link rel="stylesheet" th:href="@{'/css/main.css'}">
+	<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+	<link rel="stylesheet" th:href="@{'/css/demo.css'}">
+	<!-- GOOGLE FONTS -->
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+	<!-- ICONS -->
+	<link rel="apple-touch-icon" sizes="76x76" th:href="@{'/imgages/apple-icon.png'}">
+	<link rel="icon" type="image/png" sizes="96x96" th:href="@{'/imgages/favicon.png'}">
+</head>
+
+<body class="page-error">
+	<!-- WRAPPER -->
+	<div id="wrapper">
+		<div class="vertical-align-wrap">
+			<div class="vertical-align-middle">
+				<h1>
+					<span class="clearfix title">
+						<span class="number">500</span> <br>
+						<span>Error del servidor</span>
+					</span>
+				</h1>
+				<p class="margin-bottom-30">Hemos experimentado un error en el servidor. Estamos trabajando en ello.
+					<br>Por favor intenta de nuevo más tarde.</p>
+				<p>
+					<a th:href="@{'/'}" class="btn btn-primary"><i class="fa fa-home"></i> <span>Inicio</span></a>
+				</p>
+			</div>
+		</div>
+	</div>
+	<!-- END WRAPPER -->
+</body>
+
+</html>

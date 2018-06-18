@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio</title>
+    <link rel="stylesheet" th:href="@{'/vendor/bootstrap/css/bootstrap.min.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/font-awesome/css/font-awesome.min.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/linearicons/style.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/metisMenu/metisMenu.css'}">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" th:href="@{'/css/main.css'}">
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+    <!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="76x76" th:href="@{'/imgages/apple-icon.png'}">
+    <link rel="icon" type="image/png" sizes="96x96" th:href="@{'/imgages/favicon.png'}">
+</head>
+<body>
+<!------ Include the above in your HEAD tag ---------->
+
+
+<div id="wrapper">
+    <th:block th:include="header::header"></th:block>
+    <div id="main-content">
+        <div class="container-fluid">
+            <div class="dashboard-section">
+
+                <div class="section-heading clearfix">
+                    <h2 class="section-title"><i class="fa fa-pie-chart"></i> Bienvenido</h2>
+                </div>
+
+                <div class="box">
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+                                <div class="box-part text-center">
+
+                                    <i class="fa fa-question-circle-o fa-3x" aria-hidden="true"></i>
+
+                                    <div class="title">
+                                        <h3>Preguntas</h3>
+                                    </div>
+
+                                    <div class="text">
+                                        <span>Crear, editar o revisar las preguntas</span>
+                                    </div>
+
+                                    <a href="#">Gestionar</a>
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+                                <div class="box-part text-center">
+
+                                    <i class="fa fa-file-text-o fa-3x" aria-hidden="true"></i>
+
+                                    <div class="title">
+                                        <h3>Evaluaciones</h3>
+                                    </div>
+
+                                    <div class="text">
+                                        <span>Crear, editar o revisar las evaluaciones</span>
+                                    </div>
+
+                                    <a th:href="@{'/evaluaciones/index'}">Gestionar</a>
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+                                <div class="box-part text-center">
+
+                                    <i class="fa fa-child fa-3x" aria-hidden="true"></i>
+
+                                    <div class="title">
+                                        <h3>Grados</h3>
+                                    </div>
+
+                                    <div class="text">
+                                        <span>Crear, editar o revisar los grados</span>
+                                    </div>
+
+                                    <a th:href="@{'/grados/index/'}">Gestionar</a>
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+                                <div class="box-part text-center">
+
+                                    <i class="fa fa-puzzle-piece fa-3x" aria-hidden="true"></i>
+
+                                    <div class="title">
+                                        <h3>Competencias</h3>
+                                    </div>
+
+                                    <div class="text">
+                                        <span>Crear, editar o revisar las competencias</span>
+                                    </div>
+
+                                    <a th:href="@{'/competencias/index'}">Gestionar</a>
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+                                <div class="box-part text-center">
+
+                                    <i class="fa fa-cubes fa-3x" aria-hidden="true"></i>
+
+                                    <div class="title">
+                                        <h3>Componentes</h3>
+                                    </div>
+
+                                    <div class="text">
+                                        <span>Crear, editar o revisar los componentes</span>
+                                    </div>
+
+                                    <a th:href="@{'/componentes/index'}">Gestionar</a>
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+                                <div class="box-part text-center">
+
+                                    <i class="fa fa-users fa-3x" aria-hidden="true"></i>
+
+                                    <div class="title">
+                                        <h3>Usuarios</h3>
+                                    </div>
+
+                                    <div class="text">
+                                        <span>Crear, editar o revisar los usuarios</span>
+                                    </div>
+
+                                    <a href="#">Gestionar</a>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

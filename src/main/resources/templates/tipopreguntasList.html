@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de tipo preguntas</title>
+    <link rel="stylesheet" th:href="@{'/vendor/bootstrap/css/bootstrap.min.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/font-awesome/css/font-awesome.min.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/linearicons/style.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/metisMenu/metisMenu.css'}">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" th:href="@{'/css/main.css'}">
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+    <!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="76x76" th:href="@{'/imgages/apple-icon.png'}">
+    <link rel="icon" type="image/png" sizes="96x96" th:href="@{'/imgages/favicon.png'}">
+</head>
+<body>
+<div id="wrapper">
+    <th:block th:include="header::header"></th:block>
+
+    <div id="main-content">
+        <div class="container-fluid">
+            <div class="section-heading">
+                <h1 class="page-title">Lista de tipo preguntas</h1>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel-content">
+
+                        <div th:if="${mensaje != null}">
+                            <div class="alert alert-success" th:text="${mensaje}" role="alert"></div>
+                        </div>
+
+                        <a th:href="@{'/tipopreguntas/form'}" class="btn btn-success" role="button"
+                           title="Agregar Grado">Agregar tipo de pregunta</a><br><br>
+
+                        <h3 class="heading"><i class="fa fa-square"></i> Detalles</h3>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped no-margin">
+                                <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Descripción</th>
+                                    <th>Estado</th>
+                                    <th>Fecha actualización</th>
+                                    <th>Acciones</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="tipo : ${tipopreguntas}">
+                                    <td th:text="${tipo.nombre}"></td>
+                                    <td th:text="${tipo.descripcion}"></td>
+                                    <td th:text="${tipo.estado == 1 ? 'Activo' : 'Inactivo'}"></td>
+                                    <td th:text="${tipo.updatedAt}"></td>
+                                    <td>
+                                        <a th:href="@{'/tipopreguntas/edit/' + ${tipo.idTipoPregunta}}"
+                                           class="btn btn-success btn-sm"
+                                           role="button"
+                                           title="Edit"><span
+                                                class="glyphicon glyphicon-pencil"></span></a>
+                                        <a th:href="@{'/tipopreguntas/delete/' + ${tipo.idTipoPregunta}}"
+                                           onclick="return confirm('¿Borrar tipo pregunta?')" class="btn btn-danger btn-sm"
+                                           role="button" title="Eliminar"><span
+                                                class="glyphicon glyphicon-trash"></span></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="table-pagination">
+                                <ul class="pagination borderless">
+                                    <li th:class="${tipopreguntas.number eq 0} ? 'disabled' : ''">
+                                        <a th:if="${not tipopreguntas.first}"
+                                           th:href="@{${'/tipopreguntas/index/'}(page=${tipopreguntas.number - 1},size=${tipopreguntas.size})}">Atrás</a>
+                                        <a th:if="${tipopreguntas.first}" href="javascript:void(0);">Atrás</a>
+                                    </li>
+
+                                    <li th:each="pageNo : ${#numbers.sequence(0, tipopreguntas.totalPages - 1)}"
+                                        th:class="${tipopreguntas.number eq pageNo}? 'active' : ''">
+                                        <a th:if="${tipopreguntas.number  eq pageNo}" href="javascript:void(0);">
+                                            <span th:text="${pageNo + 1}"></span>
+                                        </a>
+                                        <a th:class="${tipopreguntas.totalElements eq 0 ? 'hidden' : 'visible'}"  th:if="${not (tipopreguntas.number  eq pageNo)}"
+                                           th:href="@{${'/tipopreguntas/index/'}(page=${pageNo},size=${tipopreguntas.size})}">
+                                            <span th:text="${pageNo + 1}"></span>
+                                        </a>
+
+                                    </li>
+                                    <li th:class="${tipopreguntas.number + 1 ge tipopreguntas.totalPages} ? 'disabled' : ''">
+                                        <a th:if="${not tipopreguntas.last}"
+                                           th:href="@{${'/tipopreguntas/index/'}(page=${tipopreguntas.number+1},size=${tipopreguntas.size})}">Siguiente</a>
+                                        <a th:if="${tipopreguntas.last}" href="javascript:void(0);">Siguiente</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

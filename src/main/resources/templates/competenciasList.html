@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de competencias</title>
+    <link rel="stylesheet" th:href="@{'/vendor/bootstrap/css/bootstrap.min.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/font-awesome/css/font-awesome.min.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/linearicons/style.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/metisMenu/metisMenu.css'}">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" th:href="@{'/css/main.css'}">
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+    <!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="76x76" th:href="@{'/imgages/apple-icon.png'}">
+    <link rel="icon" type="image/png" sizes="96x96" th:href="@{'/imgages/favicon.png'}">
+</head>
+<body>
+<div id="wrapper">
+    <th:block th:include="header::header"></th:block>
+
+    <div id="main-content">
+        <div class="container-fluid">
+            <div class="section-heading">
+                <h1 class="page-title">Lista de competencias</h1>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel-content">
+
+                        <div th:if="${mensaje != null}">
+                            <div class="alert alert-success" th:text="${mensaje}" role="alert"></div>
+                        </div>
+
+                        <a th:href="@{'/competencias/form'}" class="btn btn-success" role="button"
+                           title="Agregar Grado">Agregar competencia</a><br><br>
+
+                        <h3 class="heading"><i class="fa fa-square"></i> Detalles</h3>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped no-margin">
+                                <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Descripción</th>
+                                    <th>Estado</th>
+                                    <th>Fecha actualización</th>
+                                    <th>Acciones</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="competencia : ${competencias}">
+                                    <td th:text="${competencia.nombre}"></td>
+                                    <td th:text="${competencia.descripcion}"></td>
+                                    <td th:text="${competencia.estado == 1 ? 'Activo' : 'Inactivo'}"></td>
+                                    <td th:text="${competencia.updatedAt}"></td>
+                                    <td>
+                                        <a th:href="@{'/competencias/edit/' + ${competencia.idCompetencia}}"
+                                           class="btn btn-success btn-sm"
+                                           role="button"
+                                           title="Edit"><span
+                                                class="glyphicon glyphicon-pencil"></span></a>
+                                        <a th:href="@{'/competencias/delete/' + ${competencia.idCompetencia}}"
+                                           onclick="return confirm('¿Borrar competencia?')" class="btn btn-danger btn-sm"
+                                           role="button" title="Eliminar"><span
+                                                class="glyphicon glyphicon-trash"></span></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="table-pagination">
+                                <ul class="pagination borderless">
+                                    <li th:class="${competencias.number eq 0} ? 'disabled' : ''">
+                                        <a th:if="${not competencias.first}"
+                                           th:href="@{${'/competencias/index/'}(page=${competencias.number - 1},size=${competencias.size})}">Atrás</a>
+                                        <a th:if="${competencias.first}" href="javascript:void(0);">Atrás</a>
+                                    </li>
+
+                                    <li th:each="pageNo : ${#numbers.sequence(0, competencias.totalPages - 1)}"
+                                        th:class="${competencias.number eq pageNo}? 'active' : ''">
+                                        <a th:if="${competencias.number  eq pageNo}" href="javascript:void(0);">
+                                            <span th:text="${pageNo + 1}"></span>
+                                        </a>
+                                        <a th:class="${competencias.size == 0 ? 'hidden' : 'visible'}" th:if="${not (competencias.number  eq pageNo)}"
+                                           th:href="@{${'/competencias/index/'}(page=${pageNo},size=${competencias.size})}">
+                                            <span th:text="${pageNo + 1}"></span>
+                                        </a>
+
+                                    </li>
+                                    <li th:class="${competencias.number + 1 ge competencias.totalPages} ? 'disabled' : ''">
+                                        <a th:if="${not competencias.last}"
+                                           th:href="@{${'/competencias/index/'}(page=${competencias.number+1},size=${competencias.size})}">Siguiente</a>
+                                        <a th:if="${competencias.last}" href="javascript:void(0);">Siguiente</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
