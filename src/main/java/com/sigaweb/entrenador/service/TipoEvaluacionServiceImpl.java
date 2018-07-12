@@ -1,6 +1,5 @@
 package com.sigaweb.entrenador.service;
 
-import com.sigaweb.entrenador.entities.Areas;
 import com.sigaweb.entrenador.entities.TipoEvaluacion;
 import com.sigaweb.entrenador.repository.TipoEvaluacionRepository;
 import org.springframework.beans.factory.annotation.Autowired;

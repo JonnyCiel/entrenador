@@ -5,6 +5,8 @@
  */
 package com.sigaweb.entrenador.entities;
 
+import com.sigaweb.entrenador.entities.Usuario;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -29,8 +31,6 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "evaluacion_usuario")
-@NamedQueries({
-    @NamedQuery(name = "EvaluacionUsuario.findAll", query = "SELECT e FROM EvaluacionUsuario e")})
 public class EvaluacionUsuario implements Serializable {
 
     private static final long serialVersionUID = 1L;

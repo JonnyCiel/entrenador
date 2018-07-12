@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario preguntas</title>
+    <link rel="stylesheet" th:href="@{'/vendor/bootstrap/css/bootstrap.min.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/font-awesome/css/font-awesome.min.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/linearicons/style.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/metisMenu/metisMenu.css'}">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" th:href="@{'/css/main.css'}">
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+    <!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="76x76" th:href="@{'/imgages/apple-icon.png'}">
+    <link rel="icon" type="image/png" sizes="96x96" th:href="@{'/imgages/favicon.png'}">
+</head>
+<body>
+
+<div id="wrapper">
+    <th:block th:include="header::header"></th:block>
+
+    <div id="main-content">
+        <div class="container-fluid">
+            <div class="section-heading">
+                <h1 class="page-title">Formulario de preguntas</h1>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="panel-content">
+                        <h2 class="heading"><i class="fa fa-square"></i>Enunciado</h2>
+
+                        <div class="alert alert-danger" th:if="${errores != null}">
+                            <ul>
+                                <li th:each="err : ${errores}" th:text="${err}"></li>
+                            </ul>
+                        </div>
+
+                        <form id="basic-form" th:action="@{'/preguntas/save/'}" th:object="${pregunta}" method="post">
+                            <div class="form-group">
+                                <label>Enunciado</label>
+                                <input hidden="hidden" th:field="*{idPregunta}">
+                                <input type="text" th:field="*{idEnunciado.texto}" class="form-control"
+                                       placeholder="Opcional">
+                                <p th:if="${#fields.hasErrors('texto')}" th:errors="*{idEnunciado.texto}"></p>
+                            </div>
+                            <div class="form-group">
+                                <label>Distractor</label>
+                                <input type="text" th:field="*{idEnunciado.distractor}" class="form-control"
+                                       placeholder="Opcional">
+                                <p th:if="${#fields.hasErrors('idEnunciado.distractor')}"
+                                   th:errors="*{idEnunciado.distractor}"></p>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Mostrar enunciado (La opción "Ocultar" se pondrá por defecto si el enunciado y
+                                    distractor quedan vacíos)</label>
+                                <br/>
+                                <label class="fancy-radio">
+                                    <input type="radio" th:field="*{idEnunciado.estado}" th:value="1"
+                                           data-parsley-errors-container="#error-radio-enunciado">
+                                    <span><i></i>Mostrar</span>
+                                </label>
+                                <label class="fancy-radio">
+                                    <input type="radio" th:field="*{idEnunciado.estado}" th:value="2" checked>
+                                    <span><i></i>Ocultar</span>
+                                </label>
+                                <p id="error-radio-enunciado"></p>
+                            </div>
+
+                            <h2 class="heading"><i class="fa fa-square"></i>Pregunta</h2>
+                            <div class="form-group">
+                                <label>Texto</label>
+                                <input type="text" th:field="*{texto}" class="form-control" required
+                                       placeholder="Texto de la pregunta">
+                                <p th:if="${#fields.hasErrors('texto')}" th:errors="*{texto}"></p>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <label>Nivel</label>
+                                        <input type="range" id="ageInputId" class="custom-range" th:field="*{nivel}"
+                                               th:value="1" min="1" max="10"
+                                               oninput="ageOutputId.value = ageInputId.value">
+                                        <output id="ageOutputId" th:text="*{nivel}"></output>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label>Profundización</label>
+                                        <input type="range" id="ageInputId1" class="custom-range"
+                                               th:field="*{profudizacion}"
+                                               th:value="1" min="1" max="10"
+                                               oninput="ageOutputId1.value = ageInputId1.value">
+                                        <output id="ageOutputId1" th:text="*{profudizacion}"></output>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">Tipo pregunta</label>
+                                <select th:field="*{idTipoPregunta}" class="form-control">
+                                    <option th:each="tipo : ${tipopregunta}"
+                                            th:value="${tipo.idTipoPregunta}"
+                                            th:text="${tipo.nombre}"></option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">Componentes y competencias</label>
+                                <select th:field="*{idCompComponente}" class="form-control">
+                                    <option th:each="compcomp : ${competenciacomponente}"
+                                            th:value="${compcomp.idCompComponente}"
+                                            th:text="${compcomp.idCompetencia.nombre + ' - ' + compcomp.idComponente.nombre}"></option>
+                                </select>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <label>Estado</label>
+                                        <br/>
+                                        <label class="fancy-radio">
+                                            <input type="radio" th:field="*{estado}" th:value="1" required
+                                                   data-parsley-errors-container="#error-radio">
+                                            <span><i></i>Activa</span>
+                                        </label>
+                                        <label class="fancy-radio">
+                                            <input type="radio" th:field="*{estado}" th:value="2">
+                                            <span><i></i>Inactiva</span>
+                                        </label>
+                                        <p id="error-radio"></p>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label>Privacidad</label>
+                                        <br/>
+                                        <label class="fancy-radio">
+                                            <input type="radio" th:field="*{privado}" th:value="1" required
+                                                   data-parsley-errors-container="#error-radio">
+                                            <span><i></i>Pública</span>
+                                        </label>
+                                        <label class="fancy-radio">
+                                            <input type="radio" th:field="*{privado}" th:value="2">
+                                            <span><i></i>Privada</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="alert alert-info" role="alert">
+                                <i class="fa fa-bell-o" aria-hidden="true"></i>Podrás añadir respuestas a esta pregunta desde la lista de preguntas
+                            </div>
+                            <br>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script th:src="@{'/vendor/bootstrap/js/bootstrap.min.js'}"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</body>
+</html>

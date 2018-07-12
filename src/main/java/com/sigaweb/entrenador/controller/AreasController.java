@@ -1,9 +1,7 @@
 package com.sigaweb.entrenador.controller;
 
 import com.sigaweb.entrenador.entities.Areas;
-import com.sigaweb.entrenador.entities.Competencias;
 import com.sigaweb.entrenador.service.AreasService;
-import com.sigaweb.entrenador.service.CompetenciaService;
 import com.sigaweb.entrenador.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.awt.geom.Area;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

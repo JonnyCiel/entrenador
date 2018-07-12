@@ -1,7 +1,6 @@
 package com.sigaweb.entrenador.controller;
 
 import com.sigaweb.entrenador.entities.Competencias;
-import com.sigaweb.entrenador.entities.Grados;
 import com.sigaweb.entrenador.service.CompetenciaService;
 import com.sigaweb.entrenador.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

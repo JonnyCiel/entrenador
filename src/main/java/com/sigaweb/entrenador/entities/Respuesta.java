@@ -30,8 +30,6 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "respuesta")
-@NamedQueries({
-    @NamedQuery(name = "Respuesta.findAll", query = "SELECT r FROM Respuesta r")})
 public class Respuesta implements Serializable {
 
     private static final long serialVersionUID = 1L;

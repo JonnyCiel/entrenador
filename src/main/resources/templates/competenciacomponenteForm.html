@@ -2,11 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Formulario áreas</title>
+    <title>Formulario de Relación</title>
     <link rel="stylesheet" th:href="@{'/vendor/bootstrap/css/bootstrap.min.css'}">
     <link rel="stylesheet" th:href="@{'/vendor/font-awesome/css/font-awesome.min.css'}">
     <link rel="stylesheet" th:href="@{'/vendor/linearicons/style.css'}">
     <link rel="stylesheet" th:href="@{'/vendor/metisMenu/metisMenu.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/bootstrap-multiselect/bootstrap-multiselect.css'}">
     <!-- MAIN CSS -->
     <link rel="stylesheet" th:href="@{'/css/main.css'}">
     <!-- GOOGLE FONTS -->
@@ -23,7 +24,7 @@
     <div id="main-content">
         <div class="container-fluid">
             <div class="section-heading">
-                <h1 class="page-title">Formulario de áreas</h1>
+                <h1 class="page-title">Formulario de relación</h1>
             </div>
 
 
@@ -38,13 +39,25 @@
                             </ul>
                         </div>
 
-                        <form id="basic-form" th:action="@{'/areas/save/'}" th:object="${area}" method="post">
+                        <form id="basic-form" th:action="@{'/competecompone/save/'}" th:object="${competecompone}"
+                              method="post">
                             <div class="form-group">
-                                <label>Nombre</label>
-                                <input hidden="hidden" th:field="*{idArea}" readonly>
-                                <input type="text" th:field="*{nombre}" class="form-control" required>
-                                <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
+                                <label class="control-label">Competencia</label>
+                                <input hidden="hidden" th:field="*{idCompComponente}">
+                                <select th:field="*{idCompetencia}" class="form-control">
+                                    <option th:each="compete : ${competencias}" th:value="${compete.idCompetencia}"
+                                            th:text="${compete.nombre}"></option>
+                                </select>
                             </div>
+
+                            <div class="form-group">
+                                <label class="control-label">Componente</label>
+                                <select th:field="*{idComponente}" class="form-control">
+                                    <option th:each="compone : ${componentes}" th:value="${compone.idComponente}"
+                                            th:text="${compone.nombre}"></option>
+                                </select>
+                            </div>
+
                             <div class="form-group">
                                 <label>Estado</label>
                                 <br/>
@@ -70,5 +83,11 @@
 
     </div>
 </div>
+
+<script th:src="@{'/vendor/jquery/jquery.min.js'}"></script>
+<script th:src="@{'/vendor/bootstrap/js/bootstrap.min.js'}"></script>
+<script th:src="@{'/vendor/metisMenu/metisMenu.js'}"></script>
+<script th:src="@{'/vendor/jquery-slimscroll/jquery.slimscroll.min.js'}"></script>
+<script th:src="@{'/scripts/common.js'}"></script>
 </body>
 </html>

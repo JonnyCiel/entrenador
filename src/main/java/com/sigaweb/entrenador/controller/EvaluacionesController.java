@@ -1,8 +1,6 @@
 package com.sigaweb.entrenador.controller;
 
-import com.sigaweb.entrenador.entities.Areas;
 import com.sigaweb.entrenador.entities.Evaluacion;
-import com.sigaweb.entrenador.entities.TipoEvaluacion;
 import com.sigaweb.entrenador.service.EvaluacionService;
 import com.sigaweb.entrenador.service.TipoEvaluacionService;
 import com.sigaweb.entrenador.service.UserService;

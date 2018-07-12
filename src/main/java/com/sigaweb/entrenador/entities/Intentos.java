@@ -29,8 +29,6 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "intentos")
-@NamedQueries({
-    @NamedQuery(name = "Intentos.findAll", query = "SELECT i FROM Intentos i")})
 public class Intentos implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -54,7 +52,7 @@ public class Intentos implements Serializable {
     @Temporal(TemporalType.TIME)
     private Date tiempo;
     @Column(name = "estado")
-    private Short estado;
+    private Short estado = 1;
     @Basic(optional = false)
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)

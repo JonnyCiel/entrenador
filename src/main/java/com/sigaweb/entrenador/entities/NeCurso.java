@@ -27,8 +27,6 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "ne_curso")
-@NamedQueries({
-    @NamedQuery(name = "NeCurso.findAll", query = "SELECT n FROM NeCurso n")})
 public class NeCurso implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -65,9 +63,11 @@ public class NeCurso implements Serializable {
     private Short libro;
     @Column(name = "estado")
     private Boolean estado;
+    @Basic(optional = false)
     @Column(name = "fecha_creado")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreado;
+    @Basic(optional = false)
     @Column(name = "fecha_modificado")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaModificado;
@@ -81,10 +81,12 @@ public class NeCurso implements Serializable {
         this.idCurso = idCurso;
     }
 
-    public NeCurso(Integer idCurso, short vigencia, boolean estadogrupo) {
+    public NeCurso(Integer idCurso, short vigencia, boolean estadogrupo, Date fechaCreado, Date fechaModificado) {
         this.idCurso = idCurso;
         this.vigencia = vigencia;
         this.estadogrupo = estadogrupo;
+        this.fechaCreado = fechaCreado;
+        this.fechaModificado = fechaModificado;
     }
 
     public Integer getIdCurso() {

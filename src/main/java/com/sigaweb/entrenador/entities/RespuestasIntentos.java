@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sigaweb.entrenador.entities;
+package com.sigaweb.entrenador.entities;;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -27,8 +27,6 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "respuestas_intentos")
-@NamedQueries({
-    @NamedQuery(name = "RespuestasIntentos.findAll", query = "SELECT r FROM RespuestasIntentos r")})
 public class RespuestasIntentos implements Serializable {
 
     private static final long serialVersionUID = 1L;

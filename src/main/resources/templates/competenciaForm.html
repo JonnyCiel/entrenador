@@ -42,7 +42,6 @@
                             <div class="form-group">
                                 <label>Nombre</label>
                                 <input hidden="hidden" th:field="*{idCompetencia}">
-                                <input hidden="hidden" th:field="*{createdAt}">
                                 <input type="text" th:field="*{nombre}" class="form-control" required>
                                 <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
                             </div>

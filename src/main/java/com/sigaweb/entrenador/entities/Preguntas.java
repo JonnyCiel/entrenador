@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,8 +31,6 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "preguntas")
-@NamedQueries({
-    @NamedQuery(name = "Preguntas.findAll", query = "SELECT p FROM Preguntas p")})
 public class Preguntas implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,13 +44,13 @@ public class Preguntas implements Serializable {
     @Column(name = "texto")
     private String texto;
     @Column(name = "nivel")
-    private Short nivel;
+    private Short nivel = 1;
     @Column(name = "profudizacion")
-    private Short profudizacion;
+    private Short profudizacion = 1;
     @Column(name = "privado")
-    private Short privado;
+    private Short privado = 1;
     @Column(name = "estado")
-    private Short estado;
+    private Short estado = 1;
     @Basic(optional = false)
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
@@ -60,6 +59,8 @@ public class Preguntas implements Serializable {
     @Column(name = "updated_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "preguntasId")
+    private List<EvaluacionPreguntas> evaluacionPreguntasList;
     @OneToMany(mappedBy = "preguntaId")
     private List<RespuestasIntentos> respuestasIntentosList;
     @OneToMany(mappedBy = "idPregunta")
@@ -152,6 +153,14 @@ public class Preguntas implements Serializable {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public List<EvaluacionPreguntas> getEvaluacionPreguntasList() {
+        return evaluacionPreguntasList;
+    }
+
+    public void setEvaluacionPreguntasList(List<EvaluacionPreguntas> evaluacionPreguntasList) {
+        this.evaluacionPreguntasList = evaluacionPreguntasList;
     }
 
     public List<RespuestasIntentos> getRespuestasIntentosList() {

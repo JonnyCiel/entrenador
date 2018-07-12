@@ -56,8 +56,8 @@
                                 class="fa fa-question-circle-o fa-3x"></i>
                             <span>Preguntas</span></a>
                         <ul aria-expanded="true">
-                            <li class=""><a href="ui-tabs.html">Preguntas</a></li>
-                            <li class=""><a th:href="@{'/enunciados/index'}">Enunciados</a></li>
+                            <li class=""><a th:href="@{'/preguntas/index'}">Preguntas</a></li>
+                            <!--<li class=""><a th:href="@{'/enunciados/index'}">Enunciados</a></li>-->
                             <li class=""><a th:href="@{'/tipopreguntas/index'}">Tipo de preguntas</a></li>
                             <li class=""><a href="ui-icons.html"><span>Respuestas</span></a></li>
                         </ul>
@@ -73,14 +73,14 @@
                     </li>
                     <li class=""><a th:href="@{'/grados/index/'}"><i class="fa fa-child fa-3x"></i>
                         <span>Grados</span></a></li>
-                    <li class=""><a th:href="@{'/competencias/index'}"><i class="fa fa-puzzle-piece fa-3x"></i>
-                        <span>Competencias</span></a></li>
                     <li class="">
                         <a href="#forms" class="has-arrow" aria-expanded="false"><i class="fa fa-cubes fa-3x"></i>
-                            <span>Componentes</span></a>
+                            <span>Competencias y Componentes</span></a>
                         <ul aria-expanded="true">
+                            <li class=""><a th:href="@{'/competencias/index'}">Competencias</a></li>
                             <li class=""><a th:href="@{'/componentes/index'}">Componentes</a></li>
                             <li class=""><a th:href="@{'/areas/index'}">Áreas</a></li>
+                            <li class=""><a th:href="@{'/competecompone/index'}">Relacionar</a></li>
                         </ul>
                     </li>
                     <li class="">

@@ -27,8 +27,6 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "tipo_evaluacion")
-@NamedQueries({
-    @NamedQuery(name = "TipoEvaluacion.findAll", query = "SELECT t FROM TipoEvaluacion t")})
 public class TipoEvaluacion implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,15 +39,15 @@ public class TipoEvaluacion implements Serializable {
     @Column(name = "nombre")
     private String nombre;
     @Column(name = "estado")
-    private Short estado;
+    private Short estado = 1;
     @Basic(optional = false)
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt = new Date();
+    private Date createdAt;
     @Basic(optional = false)
     @Column(name = "updated_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedAt = new Date();
+    private Date updatedAt;
     @OneToMany(mappedBy = "idTipoEvaluacion")
     private List<Evaluacion> evaluacionList;
 

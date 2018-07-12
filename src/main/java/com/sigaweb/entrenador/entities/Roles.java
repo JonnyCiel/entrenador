@@ -5,6 +5,8 @@
  */
 package com.sigaweb.entrenador.entities;
 
+import com.sigaweb.entrenador.entities.Usuario;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -27,8 +29,6 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "roles")
-@NamedQueries({
-    @NamedQuery(name = "Roles.findAll", query = "SELECT r FROM Roles r")})
 public class Roles implements Serializable {
 
     private static final long serialVersionUID = 1L;

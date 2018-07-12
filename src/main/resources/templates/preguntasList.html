@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de preguntas</title>
+    <link rel="stylesheet" th:href="@{'/vendor/bootstrap/css/bootstrap.min.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/font-awesome/css/font-awesome.min.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/linearicons/style.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/metisMenu/metisMenu.css'}">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" th:href="@{'/css/main.css'}">
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+    <!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="76x76" th:href="@{'/imgages/apple-icon.png'}">
+    <link rel="icon" type="image/png" sizes="96x96" th:href="@{'/imgages/favicon.png'}">
+</head>
+<body>
+<div id="wrapper">
+    <th:block th:include="header::header"></th:block>
+
+    <div id="main-content">
+        <div class="container-fluid">
+            <div class="section-heading">
+                <h1 class="page-title">Lista de preguntas</h1>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel-content">
+
+                        <div th:if="${mensaje != null}">
+                            <div class="alert alert-success" th:text="${mensaje}" role="alert"></div>
+                        </div>
+
+                        <a th:href="@{'/preguntas/form'}" class="btn btn-success" role="button"
+                           title="Agregar Grado">Agregar pregunta</a><br><br>
+
+                        <th:block th:include="enunciadomodal::enunciadomodal"></th:block>
+
+
+                        <h3 class="heading"><i class="fa fa-square"></i> Detalles</h3>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped no-margin">
+                                <thead>
+                                <tr>
+                                    <th>Texto</th>
+                                    <th>Enunciado</th>
+                                    <th>Tipo Pregunta</th>
+                                    <th>Competencia y componente</th>
+                                    <th>Nivel</th>
+                                    <th>Profundización</th>
+                                    <th>privacidad</th>
+                                    <th>Estado</th>
+                                    <th>Fecha actualización</th>
+                                    <th>Acciones</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="pregunta : ${preguntas}">
+                                    <td th:text="${pregunta.texto}"></td>
+                                    <td>
+                                        <a class="btn btn-default" data-toggle="modal" data-target="#large-modal"
+                                                th:href="@{'/enunciados/edit/' + ${pregunta.idEnunciado.idEnunciado}}">Ver</a>
+                                    </td>
+                                    <td th:text="${pregunta.idTipoPregunta.nombre}"></td>
+                                    <td th:text="${pregunta.idCompComponente.idComponente.nombre + '-' + pregunta.idCompComponente.idCompetencia.nombre}"></td>
+                                    <td th:text="${pregunta.nivel}"></td>
+                                    <td th:text="${pregunta.profudizacion}"></td>
+                                    <td th:text="${pregunta.privado == 1 ? 'Público' : 'Privado'}"></td>
+                                    <td th:text="${pregunta.estado == 1 ? 'Activo' : 'Inactivo'}"></td>
+                                    <td th:text="${pregunta.updatedAt}"></td>
+                                    <td>
+                                        <a th:href="@{'/preguntas/edit/' + ${pregunta.idPregunta}}"
+                                           class="btn btn-success btn-sm"
+                                           role="button"
+                                           title="Edit"><span
+                                                class="glyphicon glyphicon-pencil"></span></a>
+                                        <a th:href="@{'/preguntas/delete/' + ${pregunta.idPregunta}}"
+                                           onclick="return confirm('¿Borrar pregunta?')" class="btn btn-danger btn-sm"
+                                           role="button" title="Eliminar"><span
+                                                class="glyphicon glyphicon-trash"></span></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="table-pagination">
+                                <ul class="pagination borderless">
+                                    <li th:class="${preguntas.number eq 0} ? 'disabled' : ''">
+                                        <a th:if="${not preguntas.first}"
+                                           th:href="@{${'/preguntas/index/'}(page=${preguntas.number - 1},size=${preguntas.size})}">Atrás</a>
+                                        <a th:if="${preguntas.first}" href="javascript:void(0);">Atrás</a>
+                                    </li>
+
+                                    <li th:each="pageNo : ${#numbers.sequence(0, preguntas.totalPages - 1)}"
+                                        th:class="${preguntas.number eq pageNo}? 'active' : ''">
+                                        <a th:if="${preguntas.number  eq pageNo}" href="javascript:void(0);">
+                                            <span th:text="${pageNo + 1}"></span>
+                                        </a>
+                                        <a th:class="${preguntas.size == 0 ? 'hidden' : 'visible'}"
+                                           th:if="${not (preguntas.number  eq pageNo)}"
+                                           th:href="@{${'/preguntas/index/'}(page=${pageNo},size=${preguntas.size})}">
+                                            <span th:text="${pageNo + 1}"></span>
+                                        </a>
+
+                                    </li>
+                                    <li th:class="${preguntas.number + 1 ge preguntas.totalPages} ? 'disabled' : ''">
+                                        <a th:if="${not preguntas.last}"
+                                           th:href="@{${'/preguntas/index/'}(page=${preguntas.number+1},size=${preguntas.size})}">Siguiente</a>
+                                        <a th:if="${preguntas.last}" href="javascript:void(0);">Siguiente</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script th:src="@{'/vendor/jquery/jquery.min.js'}"></script>
+<script th:src="@{'/vendor/bootstrap/js/bootstrap.min.js'}"></script>
+<script th:src="@{'/vendor/metisMenu/metisMenu.js'}"></script>
+<script th:src="@{'/vendor/jquery-slimscroll/jquery.slimscroll.min.js'}"></script>
+<script th:src="@{'/scripts/common.js'}"></script>
+</body>
+</html>

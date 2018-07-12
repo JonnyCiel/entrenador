@@ -20,15 +20,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Size;
 
 /**
+ *
  * @author Jonny
  */
 @Entity
 @Table(name = "grados")
-@NamedQueries({
-        @NamedQuery(name = "Grados.findAll", query = "SELECT g FROM Grados g")})
 public class Grados implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,22 +37,20 @@ public class Grados implements Serializable {
     private Integer idGrado;
     @Basic(optional = false)
     @Column(name = "numero")
-    @Size(min = 1, max = 2)
     private String numero;
     @Basic(optional = false)
     @Column(name = "texto")
-    @Size(min = 1, max = 15)
     private String texto;
     @Column(name = "estado")
-    private Short estado;
+    private Short estado = 1;
     @Basic(optional = false)
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt = new Date();
+    private Date createdAt;
     @Basic(optional = false)
     @Column(name = "updated_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedAt = new Date();
+    private Date updatedAt;
     @OneToMany(mappedBy = "idGrado")
     private List<PreguntaGrado> preguntaGradoList;
 
@@ -153,5 +149,5 @@ public class Grados implements Serializable {
     public String toString() {
         return "entities.Grados[ idGrado=" + idGrado + " ]";
     }
-
+    
 }

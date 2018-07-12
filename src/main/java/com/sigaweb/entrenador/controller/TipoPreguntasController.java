@@ -1,8 +1,6 @@
 package com.sigaweb.entrenador.controller;
 
-import com.sigaweb.entrenador.entities.Areas;
 import com.sigaweb.entrenador.entities.TipoPreguntas;
-import com.sigaweb.entrenador.service.AreasService;
 import com.sigaweb.entrenador.service.TipoPreguntasService;
 import com.sigaweb.entrenador.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

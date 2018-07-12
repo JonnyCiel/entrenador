@@ -1,8 +1,6 @@
 package com.sigaweb.entrenador.controller;
 
-import com.sigaweb.entrenador.entities.Competencias;
 import com.sigaweb.entrenador.entities.Enunciados;
-import com.sigaweb.entrenador.service.CompetenciaService;
 import com.sigaweb.entrenador.service.EnunciadoService;
 import com.sigaweb.entrenador.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +60,7 @@ public class EnunciadosController {
 
         ra.addFlashAttribute("mensaje", "Se ha guardado con éxito");
 
-        return "redirect:/enunciados/index";
+        return "redirect:/preguntas/index";
     }
 
 

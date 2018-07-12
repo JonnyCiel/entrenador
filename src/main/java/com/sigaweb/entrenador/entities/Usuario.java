@@ -43,8 +43,6 @@ public class Usuario implements Serializable {
     private String clave;
     @Column(name = "colegio")
     private String colegio;
-    @Column(name = "id_tip_documento")
-    private Integer idTipDocumento;
     @Basic(optional = false)
     @Column(name = "nro_documento")
     private String nroDocumento;
@@ -91,6 +89,9 @@ public class Usuario implements Serializable {
     private List<MeRenovacionmatricula> meRenovacionmatriculaList;
     @OneToMany(mappedBy = "idUsuario")
     private List<EvaluacionUsuario> evaluacionUsuarioList;
+    @JoinColumn(name = "tipo_documento_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private TipoDocumento tipoDocumentoId;
     @JoinColumn(name = "rol_id", referencedColumnName = "id_rol")
     @ManyToOne
     private Roles rolId;
@@ -141,14 +142,6 @@ public class Usuario implements Serializable {
 
     public void setColegio(String colegio) {
         this.colegio = colegio;
-    }
-
-    public Integer getIdTipDocumento() {
-        return idTipDocumento;
-    }
-
-    public void setIdTipDocumento(Integer idTipDocumento) {
-        this.idTipDocumento = idTipDocumento;
     }
 
     public String getNroDocumento() {
@@ -303,6 +296,14 @@ public class Usuario implements Serializable {
         this.evaluacionUsuarioList = evaluacionUsuarioList;
     }
 
+    public TipoDocumento getTipoDocumentoId() {
+        return tipoDocumentoId;
+    }
+
+    public void setTipoDocumentoId(TipoDocumento tipoDocumentoId) {
+        this.tipoDocumentoId = tipoDocumentoId;
+    }
+
     public Roles getRolId() {
         return rolId;
     }
@@ -333,7 +334,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Usuario[ idUsuario=" + idUsuario + " ]";
+        return "com.sigaweb.entrenador.entities.Usuario[ idUsuario=" + idUsuario + " ]";
     }
     
 }

@@ -1,6 +1,5 @@
 package com.sigaweb.entrenador.controller;
 
-import com.sigaweb.entrenador.entities.Areas;
 import com.sigaweb.entrenador.entities.Componentes;
 import com.sigaweb.entrenador.service.AreasService;
 import com.sigaweb.entrenador.service.ComponentesService;

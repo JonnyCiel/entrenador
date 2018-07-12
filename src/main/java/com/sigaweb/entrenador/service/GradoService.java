@@ -4,8 +4,6 @@ import com.sigaweb.entrenador.entities.Grados;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Optional;
-
 public interface GradoService {
     String saveGrado(Grados grado);
 

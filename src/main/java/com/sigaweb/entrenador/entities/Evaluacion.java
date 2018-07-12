@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,8 +30,6 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "evaluacion")
-@NamedQueries({
-    @NamedQuery(name = "Evaluacion.findAll", query = "SELECT e FROM Evaluacion e")})
 public class Evaluacion implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,26 +40,45 @@ public class Evaluacion implements Serializable {
     private Integer idEvaluacion;
     @Basic(optional = false)
     @Column(name = "cantidad_intentos")
-    private short cantidadIntentos = 1;
+    private short cantidadIntentos;
     @Basic(optional = false)
     @Column(name = "fecha_limite")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaLimite;
     @Basic(optional = false)
     @Column(name = "fecha_inicio")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaInicio;
     @Column(name = "estado")
-    private Short estado;
+    private Short estado = 1;
     @Basic(optional = false)
     @Column(name = "created_at")
-    private Date createdAt = new Date();
+    @Temporal(TemporalType.DATE)
+    private Date createdAt;
     @Basic(optional = false)
     @Column(name = "updated_at")
-    private Date updatedAt = new Date();
+    @Temporal(TemporalType.DATE)
+    private Date updatedAt;
+    @Basic(optional = false)
+    @Column(name = "hora_inicio")
+    @Temporal(TemporalType.TIME)
+    private Date horaInicio;
+    @Basic(optional = false)
+    @Column(name = "hora_final")
+    @Temporal(TemporalType.TIME)
+    private Date horaFinal;
+    @Column(name = "password")
+    private String password;
+    @Basic(optional = false)
+    @Column(name = "nombre")
+    private String nombre;
     @JoinColumn(name = "id_tipo_evaluacion", referencedColumnName = "id_tipo_evaluacion")
     @ManyToOne
     private TipoEvaluacion idTipoEvaluacion;
     @OneToMany(mappedBy = "idEvaluacion")
     private List<EvaluacionUsuario> evaluacionUsuarioList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "evaluacionId")
+    private List<EvaluacionPreguntas> evaluacionPreguntasList;
 
     public Evaluacion() {
     }
@@ -69,13 +87,16 @@ public class Evaluacion implements Serializable {
         this.idEvaluacion = idEvaluacion;
     }
 
-    public Evaluacion(Integer idEvaluacion, short cantidadIntentos, Date fechaLimite, Date fechaInicio, Date createdAt, Date updatedAt) {
+    public Evaluacion(Integer idEvaluacion, short cantidadIntentos, Date fechaLimite, Date fechaInicio, Date createdAt, Date updatedAt, Date horaInicio, Date horaFinal, String nombre) {
         this.idEvaluacion = idEvaluacion;
         this.cantidadIntentos = cantidadIntentos;
         this.fechaLimite = fechaLimite;
         this.fechaInicio = fechaInicio;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.horaInicio = horaInicio;
+        this.horaFinal = horaFinal;
+        this.nombre = nombre;
     }
 
     public Integer getIdEvaluacion() {
@@ -134,6 +155,38 @@ public class Evaluacion implements Serializable {
         this.updatedAt = updatedAt;
     }
 
+    public Date getHoraInicio() {
+        return horaInicio;
+    }
+
+    public void setHoraInicio(Date horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public Date getHoraFinal() {
+        return horaFinal;
+    }
+
+    public void setHoraFinal(Date horaFinal) {
+        this.horaFinal = horaFinal;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     public TipoEvaluacion getIdTipoEvaluacion() {
         return idTipoEvaluacion;
     }
@@ -148,6 +201,14 @@ public class Evaluacion implements Serializable {
 
     public void setEvaluacionUsuarioList(List<EvaluacionUsuario> evaluacionUsuarioList) {
         this.evaluacionUsuarioList = evaluacionUsuarioList;
+    }
+
+    public List<EvaluacionPreguntas> getEvaluacionPreguntasList() {
+        return evaluacionPreguntasList;
+    }
+
+    public void setEvaluacionPreguntasList(List<EvaluacionPreguntas> evaluacionPreguntasList) {
+        this.evaluacionPreguntasList = evaluacionPreguntasList;
     }
 
     @Override

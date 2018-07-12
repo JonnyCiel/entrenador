@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario enunciados</title>
+    <link rel="stylesheet" th:href="@{'/vendor/bootstrap/css/bootstrap.min.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/font-awesome/css/font-awesome.min.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/linearicons/style.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/metisMenu/metisMenu.css'}">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" th:href="@{'/css/main.css'}">
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+    <!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="76x76" th:href="@{'/imgages/apple-icon.png'}">
+    <link rel="icon" type="image/png" sizes="96x96" th:href="@{'/imgages/favicon.png'}">
+</head>
+<body>
+
+<div id="wrapper">
+    <div th:fragment="enunciadomodal">
+        <div id="large-modal" class="modal fade" tabindex="-1" data-backdrop="true" role="dialog"
+             aria-labelledby="myLargeModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel">Detalles</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div th:if="${enunciado != null}">
+                            <p th:text="${#strings.isEmpty(enunciado.texto) ? enunciado.texto : 'No se ingresó un enunciado'}">
+                                Modal
+                                dialog content...</p>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><i
+                                class="fa fa-times-circle"></i>
+                            Close
+                        </button>
+                        <button type="button" class="btn btn-primary"><i class="fa fa-check-circle"></i> Save changes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

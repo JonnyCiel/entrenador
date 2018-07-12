@@ -11,18 +11,17 @@ import java.util.List;
 import javax.persistence.*;
 
 /**
+ *
  * @author Jonny
  */
 @Entity
 @Table(name = "componentes")
-@NamedQueries({
-        @NamedQuery(name = "Componentes.findAll", query = "SELECT c FROM Componentes c")})
 public class Componentes implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_componente")
     private Integer idComponente;
     @Basic(optional = false)
@@ -33,15 +32,15 @@ public class Componentes implements Serializable {
     @Column(name = "descripcion")
     private String descripcion;
     @Column(name = "estado")
-    private Short estado;
+    private Short estado = 1;
     @Basic(optional = false)
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt = new Date();
+    private Date createdAt;
     @Basic(optional = false)
     @Column(name = "updated_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedAt = new Date();
+    private Date updatedAt;
     @OneToMany(mappedBy = "idComponente")
     private List<CompetenciaComponente> competenciaComponenteList;
     @JoinColumn(name = "id_area", referencedColumnName = "id_area")
@@ -151,5 +150,5 @@ public class Componentes implements Serializable {
     public String toString() {
         return "entities.Componentes[ idComponente=" + idComponente + " ]";
     }
-
+    
 }

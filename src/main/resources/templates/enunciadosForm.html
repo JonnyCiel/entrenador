@@ -23,14 +23,14 @@
     <div id="main-content">
         <div class="container-fluid">
             <div class="section-heading">
-                <h1 class="page-title">Formulario de enunciado</h1>
+                <h1 class="page-title">Formulario de enunciados</h1>
             </div>
 
 
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="panel-content">
-                        <h2 class="heading"><i class="fa fa-square"></i> Por favor completa los campos</h2>
+                        <h2 class="heading"><i class="fa fa-square"></i>Enunciado (Opcional)</h2>
 
                         <div class="alert alert-danger" th:if="${errores != null}">
                             <ul>
@@ -42,7 +42,6 @@
                             <div class="form-group">
                                 <label>Texto</label>
                                 <input hidden="hidden" th:field="*{idEnunciado}">
-                                <input hidden="hidden" th:field="*{createdAt}">
                                 <input type="text" th:field="*{texto}" class="form-control" required>
                                 <p th:if="${#fields.hasErrors('texto')}" th:errors="*{texto}"></p>
                             </div>

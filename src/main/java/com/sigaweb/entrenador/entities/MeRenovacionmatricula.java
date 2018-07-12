@@ -5,6 +5,8 @@
  */
 package com.sigaweb.entrenador.entities;
 
+import com.sigaweb.entrenador.entities.Usuario;
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -27,8 +29,6 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "me_renovacionmatricula")
-@NamedQueries({
-    @NamedQuery(name = "MeRenovacionmatricula.findAll", query = "SELECT m FROM MeRenovacionmatricula m")})
 public class MeRenovacionmatricula implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,9 +39,11 @@ public class MeRenovacionmatricula implements Serializable {
     private Integer idRenovacion;
     @Column(name = "estado")
     private Boolean estado;
+    @Basic(optional = false)
     @Column(name = "fecha_creado")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreado;
+    @Basic(optional = false)
     @Column(name = "fecha_modificado")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaModificado;
@@ -57,6 +59,12 @@ public class MeRenovacionmatricula implements Serializable {
 
     public MeRenovacionmatricula(Integer idRenovacion) {
         this.idRenovacion = idRenovacion;
+    }
+
+    public MeRenovacionmatricula(Integer idRenovacion, Date fechaCreado, Date fechaModificado) {
+        this.idRenovacion = idRenovacion;
+        this.fechaCreado = fechaCreado;
+        this.fechaModificado = fechaModificado;
     }
 
     public Integer getIdRenovacion() {

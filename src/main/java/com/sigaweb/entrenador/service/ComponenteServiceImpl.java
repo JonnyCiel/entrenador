@@ -1,14 +1,13 @@
 package com.sigaweb.entrenador.service;
 
-import com.sigaweb.entrenador.entities.Competencias;
 import com.sigaweb.entrenador.entities.Componentes;
-import com.sigaweb.entrenador.repository.CompetenciasRepository;
 import com.sigaweb.entrenador.repository.ComponentesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -37,6 +36,11 @@ public class ComponenteServiceImpl implements ComponentesService {
     @Override
     public Componentes findByNombre(String nombre) {
         return componentesRepository.findByNombre(nombre);
+    }
+
+    @Override
+    public List<Componentes> findByEstado(Short estado) {
+        return componentesRepository.findAllByEstadoEquals(estado);
     }
 
     @Override

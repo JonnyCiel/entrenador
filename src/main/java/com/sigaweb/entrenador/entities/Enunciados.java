@@ -28,8 +28,6 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "enunciados")
-@NamedQueries({
-    @NamedQuery(name = "Enunciados.findAll", query = "SELECT e FROM Enunciados e")})
 public class Enunciados implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,17 +40,17 @@ public class Enunciados implements Serializable {
     @Column(name = "texto")
     private String texto;
     @Column(name = "estado")
-    private Short estado;
+    private Short estado = 1;
     @Column(name = "distractor")
     private String distractor;
     @Basic(optional = false)
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt = new Date();
+    private Date createdAt;
     @Basic(optional = false)
     @Column(name = "updated_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedAt = new Date();
+    private Date updatedAt;
     @OneToMany(mappedBy = "idEnunciado")
     private List<Preguntas> preguntasList;
 
