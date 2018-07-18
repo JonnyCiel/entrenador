@@ -1,3 +1,3 @@
 # entrenador
 
-Primer commit
+MVP
