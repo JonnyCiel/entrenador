@@ -5,13 +5,12 @@ import com.sigaweb.entrenador.repository.*;
 import com.sigaweb.entrenador.service.EvaluacionService;
 import com.sigaweb.entrenador.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Date;
 import java.util.List;
@@ -42,15 +41,10 @@ public class RespuestaIntentosController {
     private RespuestasRepository respuestasRepository;
 
     @PostMapping("save")
+    // @ResponseStatus(value = HttpStatus.OK)
     public String saveRespuestaIntento(@ModelAttribute QuizWraper quizWraper,
                                        Authentication authentication,
-                                       Model model) {
-        if (quizWraper.getPreguntas().size() > 1) {
-            List<Preguntas> newList = quizWraper.getPreguntas();
-            newList.remove(newList.get(0));
-            quizWraper.setPreguntas(newList);
-        }
-
+                                       Model model, RedirectAttributes ra) {
 
         Optional<Intentos> optionalIntentos = intentosRepository.findById(quizWraper.getIntento());
         Intentos intento = optionalIntentos.orElse(null);
@@ -70,10 +64,24 @@ public class RespuestaIntentosController {
 
         respuestaIntentosRepository.save(respuestasIntentos);
 
+        List<Preguntas> newList = quizWraper.getPreguntas();
+
+        if (quizWraper.getPreguntas().size() > 1) {
+            newList.remove(newList.get(0));
+            quizWraper.setPreguntas(newList);
+        } else {
+            ra.addFlashAttribute("mensaje", "Has terminado la evaluación");
+            return "redirect:/evaluaciones/index/";
+        }
+
+
+        quizWraper.setPregunta(newList.get(0).getIdPregunta());
+
         model.addAttribute("usuario", userService.findByEmail(authentication.getName()));
         model.addAttribute("preguntas", quizWraper);
 
 
-        return "redirect:/evaluaciones/quiz/" + quizWraper.getEvaluacion();
+//        return "redirect:/evaluaciones/quiz/" + quizWraper.getEvaluacion();
+        return "quizLayout";
     }
 }

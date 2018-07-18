@@ -185,7 +185,7 @@ public class EvaluacionesController {
         quizWraper.setPregunta(preguntas.get(0).getIdPregunta());
         model.addAttribute("preguntas", quizWraper);
 //        model.addAttribute("preguntas", preguntas);
-      //  model.addAttribute("evaluacion", evaluacionService.findById(id));
+        //  model.addAttribute("evaluacion", evaluacionService.findById(id));
 
 
         return "quizLayout";
