@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface PreguntasRepository extends JpaRepository<Preguntas, Integer> {
     List<Preguntas> findAllByEstadoEquals(Short estado);
+    List<Preguntas> findAllByNivelEqualsAndProfudizacionEquals(Short nivel, Short profundizacion);
 }

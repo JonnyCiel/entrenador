@@ -46,6 +46,7 @@
                                 <tr>
                                     <th>Texto</th>
                                     <th>Enunciado</th>
+                                    <th>Respuestas</th>
                                     <th>Tipo Pregunta</th>
                                     <th>Competencia y componente</th>
                                     <th>Nivel</th>
@@ -61,7 +62,11 @@
                                     <td th:text="${pregunta.texto}"></td>
                                     <td>
                                         <a class="btn btn-default" data-toggle="modal" data-target="#large-modal"
-                                                th:href="@{'/enunciados/edit/' + ${pregunta.idEnunciado.idEnunciado}}">Ver</a>
+                                           th:href="@{'/enunciados/edit/' + ${pregunta.idEnunciado.idEnunciado}}">Ver</a>
+                                    </td>
+                                    <td>
+                                        <a th:href="@{'/respuestas/form/' +  ${pregunta.idPregunta}}"><i
+                                                class="fa fa-book fa-3x"></i></a>
                                     </td>
                                     <td th:text="${pregunta.idTipoPregunta.nombre}"></td>
                                     <td th:text="${pregunta.idCompComponente.idComponente.nombre + '-' + pregunta.idCompComponente.idCompetencia.nombre}"></td>

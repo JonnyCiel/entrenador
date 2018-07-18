@@ -41,4 +41,9 @@ public class PreguntasServiceImpl implements PreguntasService {
     public List<Preguntas> findAllByEstado(Short estado) {
         return preguntasRepository.findAllByEstadoEquals(estado);
     }
+
+    @Override
+    public List<Preguntas> findByNivelAndProfundizacion(Short nivel, Short profundizacion) {
+        return preguntasRepository.findAllByNivelEqualsAndProfudizacionEquals(nivel, profundizacion);
+    }
 }

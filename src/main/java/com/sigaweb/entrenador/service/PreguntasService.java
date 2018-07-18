@@ -17,4 +17,6 @@ public interface PreguntasService {
     Preguntas findById(Integer id);
 
     List<Preguntas> findAllByEstado(Short estado);
+
+    List<Preguntas> findByNivelAndProfundizacion(Short nivel, Short profundizacion);
 }

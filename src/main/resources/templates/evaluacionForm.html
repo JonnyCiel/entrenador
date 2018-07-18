@@ -40,11 +40,31 @@
 
                         <form id="basic-form" th:action="@{'/evaluaciones/save/'}" th:object="${evaluacion}"
                               method="post">
+
+                            <div class="form-group">
+                                <label>Nombre de la evaluación</label>
+                                <input type="text" placeholder="Nombre" th:field="*{nombre}" class="form-control"
+                                       required>
+                                <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Contraseña de acceso (opcional)</label>
+                                <input type="text" placeholder="Contraseña (opcional)" th:field="*{password}"
+                                       class="form-control">
+                                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Descripción (Opcional)</label>
+                                <input type="text" placeholder="Descripción (opcional)" th:field="*{descripcion}"
+                                       class="form-control">
+                                <p th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></p>
+                            </div>
+
                             <div class="form-group">
                                 <label>Cantidad de intentos</label>
                                 <input hidden="hidden" th:field="*{idEvaluacion}" readonly>
-                                <input hidden="hidden" th:field="*{createdAt}">
-
                                 <input type="range" id="ageInputId" class="custom-range" th:field="*{cantidadIntentos}"
                                        th:value="1" min="1" max="10" oninput="ageOutputId.value = ageInputId.value">
                                 <output id="ageOutputId" th:text="*{cantidadIntentos}"></output>
@@ -54,14 +74,33 @@
                                 <label>Rango de fecha de presentación</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">Incio</span>
-                                    <input type="text" class="text-center form-control fecha" th:field="*{fechaInicio}"
-                                           required="required" />
+                                    <input type="text" placeholder="Click para seleccionar"
+                                           class="text-center form-control fecha" th:field="*{fechaInicio}"
+                                           required="required"/>
                                     <span class="input-group-addon">Final</span>
-                                    <input type="text" class="text-center form-control fecha" th:field="*{fechaLimite}"
+                                    <input type="text" placeholder="Click para seleccionar"
+                                           class="text-center form-control fecha" th:field="*{fechaLimite}"
                                            required="required"/>
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <label>Hora inicial</label>
+                                        <br/>
+                                        <input type="time" data  id="appt-time" th:field="*{horaInicio}"
+                                               required/>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label>Hora final</label>
+                                        <br/>
+                                        <input type="time" id="appt-time_final" th:field="*{horaFinal}"
+                                               required/>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="form-group">
                                 <label class="control-label">Tipo de evaluación</label>

@@ -38,12 +38,13 @@
                             </ul>
                         </div>
 
-                        <form id="basic-form" th:action="@{'/tipoevaluaciones/save/'}" th:object="${tipoevaluacion}" method="post">
+                        <form id="basic-form" th:action="@{'/tipoevaluaciones/save/'}" th:object="${tipoevaluacion}"
+                              method="post">
                             <div class="form-group">
                                 <label>Nombre</label>
                                 <input hidden="hidden" th:field="*{idTipoEvaluacion}">
-                                <input hidden="hidden" th:field="*{createdAt}">
-                                <input type="text" th:field="*{nombre}" class="form-control" required>
+                                <input type="text" th:field="*{nombre}" class="form-control" placeholder="Nombre"
+                                       required>
                                 <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
                             </div>
                             <div class="form-group">

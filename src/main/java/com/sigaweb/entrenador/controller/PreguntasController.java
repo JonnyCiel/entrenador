@@ -1,5 +1,6 @@
 package com.sigaweb.entrenador.controller;
 
+import com.sigaweb.entrenador.entities.Enunciados;
 import com.sigaweb.entrenador.entities.Preguntas;
 import com.sigaweb.entrenador.entities.Respuesta;
 import com.sigaweb.entrenador.service.*;
@@ -93,7 +94,7 @@ public class PreguntasController {
     @GetMapping("delete/{id}")
     public String deletePregunta(@PathVariable("id") Integer id) {
         Preguntas pregunta = preguntasService.findById(id);
-
+        Enunciados enunciado = enunciadoService.findById(pregunta.getIdEnunciado().getIdEnunciado());
 
         List<Respuesta> respuestaList = respuestasService.findAllByIdPreguntaEquals(id);
         for (int i = 0; i < respuestaList.size(); i++) {
@@ -101,7 +102,7 @@ public class PreguntasController {
         }
 
         preguntasService.deletePregunta(pregunta);
-        enunciadoService.deleteEnunciados(enunciadoService.findById(pregunta.getIdEnunciado().getIdEnunciado()));
+        enunciadoService.deleteEnunciados(enunciado);
 
         return "redirect:/preguntas/index";
     }
@@ -139,4 +140,6 @@ public class PreguntasController {
 
         return "redirect:/preguntas/index";
     }
+
+
 }

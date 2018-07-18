@@ -41,23 +41,43 @@
                             <table class="table table-hover table-striped no-margin">
                                 <thead>
                                 <tr>
+                                    <th>Nombre</th>
+                                    <th>Contraseña</th>
+                                    <th>Descripción</th>
                                     <th>Tipo Evaluación</th>
                                     <th>Intentos</th>
                                     <th>Fecha inicio</th>
                                     <th>Fecha final</th>
+                                    <th>Hora inicio</th>
+                                    <th>Hora final</th>
                                     <th>Estado</th>
                                     <th>Fecha actualización</th>
+                                    <th>Vincular usuarios</th>
+                                    <th>Vincular preguntas</th>
                                     <th>Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr th:each="evaluacion : ${evaluaciones}">
+                                    <td th:text="${evaluacion.nombre}"></td>
+                                    <td th:text="${evaluacion.password}"></td>
+                                    <td th:text="${evaluacion.descripcion}"></td>
                                     <td th:text="${evaluacion.idTipoEvaluacion.nombre}"></td>
                                     <td th:text="${evaluacion.cantidadIntentos}"></td>
                                     <td th:text="${#dates.format(evaluacion.fechaInicio, 'dd-MM-yyyy')}"></td>
                                     <td th:text="${#dates.format(evaluacion.fechaLimite, 'dd-MM-yyyy')}"></td>
+                                    <td th:text="${evaluacion.horaInicio}"></td>
+                                    <td th:text="${evaluacion.horaFinal}"></td>
                                     <td th:text="${evaluacion.estado == 1 ? 'Activo' : 'Inactivo'}"></td>
                                     <td th:text="${#dates.format(evaluacion.updatedAt, 'dd-MM-yyyy')}"></td>
+                                    <td>
+                                        <a th:href="@{'/evaluacionusuarios/form/' +  ${evaluacion.idEvaluacion}}"><i
+                                                class="fa fa-book fa-3x"></i></a>
+                                    </td>
+                                    <td>
+                                        <a th:href="@{'/evaluapregunta/form/' +  ${evaluacion.idEvaluacion}}"><i
+                                                class="fa fa-book fa-3x"></i></a>
+                                    </td>
                                     <td>
                                         <a th:href="@{'/evaluaciones/edit/' + ${evaluacion.idEvaluacion}}"
                                            class="btn btn-success btn-sm"
@@ -68,6 +88,11 @@
                                            onclick="return confirm('¿Borrar evaluación?')" class="btn btn-danger btn-sm"
                                            role="button" title="Eliminar"><span
                                                 class="glyphicon glyphicon-trash"></span></a>
+
+                                        <a th:href="@{'/evaluaciones/quiz/' + ${evaluacion.idEvaluacion}}"
+                                           onclick="return confirm('¿Tomar evaluación?')" class="btn btn-alert btn-sm"
+                                           role="button" title="Iniciar"><span
+                                                class="glyphicon glyphicon-education"></span></a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -85,7 +110,8 @@
                                         <a th:if="${evaluaciones.number  eq pageNo}" href="javascript:void(0);">
                                             <span th:text="${pageNo + 1}"></span>
                                         </a>
-                                        <a th:class="${evaluaciones.size == 0 ? 'hidden' : 'visible'}" th:if="${not (evaluaciones.number  eq pageNo)}"
+                                        <a th:class="${evaluaciones.size == 0 ? 'hidden' : 'visible'}"
+                                           th:if="${not (evaluaciones.number  eq pageNo)}"
                                            th:href="@{${'/evaluaciones/index/'}(page=${pageNo},size=${evaluaciones.size})}">
                                             <span th:text="${pageNo + 1}"></span>
                                         </a>

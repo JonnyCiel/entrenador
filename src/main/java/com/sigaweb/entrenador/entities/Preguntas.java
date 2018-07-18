@@ -26,7 +26,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- *
  * @author Jonny
  */
 @Entity
@@ -235,5 +234,5 @@ public class Preguntas implements Serializable {
     public String toString() {
         return "entities.Preguntas[ idPregunta=" + idPregunta + " ]";
     }
-    
+
 }

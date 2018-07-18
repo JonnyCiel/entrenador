@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Evaluación</title>
+    <link rel="stylesheet" th:href="@{'/vendor/bootstrap/css/bootstrap.min.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/font-awesome/css/font-awesome.min.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/linearicons/style.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/metisMenu/metisMenu.css'}">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" th:href="@{'/css/main.css'}">
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+    <!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="76x76" th:href="@{'/imgages/apple-icon.png'}">
+    <link rel="icon" type="image/png" sizes="96x96" th:href="@{'/imgages/favicon.png'}">
+
+    <style>
+
+        input[type=radio] + label {
+            display: inline-block;
+            width: 95%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        input[type=radio] + label:hover {
+            border: 1px solid #000000;
+        }
+
+        input[type=radio]:checked + label {
+            background-image: none;
+            background-color: #0C0;
+            color: #fff;
+            border: 1px solid #0C0 !important;
+            -webkit-transition: all 0.2s ease-in-out;
+            -moz-transition: all 0.2s ease-in-out;
+            -o-transition: all 0.2s ease-in-out;
+            -ms-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .worngans {
+            background-color: #F36;
+            color: #fff;
+            border: 1px solid #F36 !important;
+            -webkit-transition: all 0.2s ease-in-out;
+            -moz-transition: all 0.2s ease-in-out;
+            -o-transition: all 0.2s ease-in-out;
+            -ms-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div id="wrapper">
+    <th:block th:include="header::header"></th:block>
+    <div id="main-content">
+        <div class="container-fluid">
+            <div class="section-heading">
+                <!--<h1 class="page-title" th:text="${evaluacion.nombre}"></h1>-->
+                <h1 class="page-title" th:text="'Total preguntas: ' + ${preguntas.preguntas.size()}"></h1>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel-content">
+                        <div class="scp-quizzes-main">
+                            <div class="scp-quizzes-data">
+
+                                <form id="myForm" method="post" th:action="@{'/resint/save/'}" th:object="${preguntas}"
+                                >
+                                    <input hidden="hidden" th:field="*{evaluacion}">
+                                    <input hidden="hidden" th:field="*{intento}">
+                                    <input hidden="hidden" th:field="*{pregunta}">
+                                    <input hidden="hidden" th:field="*{preguntas}">
+                                    <h3 th:text="${preguntas.preguntas[0].texto}">1. What is the output of the below c
+                                        code?</h3>
+                                    <pre th:classappend="${preguntas.preguntas[0].idEnunciado.texto.isEmpty() ? 'hidden' : ''}"
+                                         th:text="${preguntas.preguntas[0].idEnunciado.texto} + ' &#10' + ${preguntas.preguntas[0].idEnunciado.distractor}"></pre>
+
+                                    <br/>
+                                    <input type="radio"
+                                           th:field="*{respuesta}"
+                                           th:value="${preguntas.preguntas[0].respuestaList[0].idRespuesta}">
+                                    <label th:text="${'A. ' + preguntas.preguntas[0].respuestaList[0].texto}"></label>
+                                    <br/>
+                                    <input type="radio"
+                                           th:field="*{respuesta}"
+                                           th:value="${preguntas.preguntas[0].respuestaList[1].idRespuesta}">
+                                    <label th:text="${'B. ' + preguntas.preguntas[0].respuestaList[1].texto}"></label>
+                                    <br/>
+                                    <input type="radio"
+                                           th:field="*{respuesta}"
+                                           th:value="${preguntas.preguntas[0].respuestaList[2].idRespuesta}">
+                                    <label th:text="${'C. ' + preguntas.preguntas[0].respuestaList[2].texto}"></label>
+                                    <br/>
+                                    <input type="radio"
+                                           th:field="*{respuesta}"
+                                           th:value="${preguntas.preguntas[0].respuestaList[3].idRespuesta}">
+                                    <label th:text="${'D. ' + preguntas.preguntas[0].respuestaList[3].texto}"></label>
+
+
+                                    <br>
+                                    <button type="submit" class="btn btn-primary">Enviar</button>
+                                </form>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -5,24 +5,12 @@
  */
 package com.sigaweb.entrenador.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 /**
  *
@@ -40,7 +28,7 @@ public class Evaluacion implements Serializable {
     private Integer idEvaluacion;
     @Basic(optional = false)
     @Column(name = "cantidad_intentos")
-    private short cantidadIntentos;
+    private short cantidadIntentos = 1;
     @Basic(optional = false)
     @Column(name = "fecha_limite")
     @Temporal(TemporalType.TIMESTAMP)
@@ -61,24 +49,24 @@ public class Evaluacion implements Serializable {
     private Date updatedAt;
     @Basic(optional = false)
     @Column(name = "hora_inicio")
-    @Temporal(TemporalType.TIME)
-    private Date horaInicio;
+    private String horaInicio;
     @Basic(optional = false)
     @Column(name = "hora_final")
-    @Temporal(TemporalType.TIME)
-    private Date horaFinal;
+    private String horaFinal;
     @Column(name = "password")
     private String password;
     @Basic(optional = false)
     @Column(name = "nombre")
     private String nombre;
+    @Basic(optional = false)
+    @Column(name = "owner")
+    private String owner;
+    @Lob
+    @Column(name = "descripcion")
+    private String descripcion;
     @JoinColumn(name = "id_tipo_evaluacion", referencedColumnName = "id_tipo_evaluacion")
     @ManyToOne
     private TipoEvaluacion idTipoEvaluacion;
-    @OneToMany(mappedBy = "idEvaluacion")
-    private List<EvaluacionUsuario> evaluacionUsuarioList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "evaluacionId")
-    private List<EvaluacionPreguntas> evaluacionPreguntasList;
 
     public Evaluacion() {
     }
@@ -87,7 +75,7 @@ public class Evaluacion implements Serializable {
         this.idEvaluacion = idEvaluacion;
     }
 
-    public Evaluacion(Integer idEvaluacion, short cantidadIntentos, Date fechaLimite, Date fechaInicio, Date createdAt, Date updatedAt, Date horaInicio, Date horaFinal, String nombre) {
+    public Evaluacion(Integer idEvaluacion, short cantidadIntentos, Date fechaLimite, Date fechaInicio, Date createdAt, Date updatedAt, String horaInicio, String horaFinal, String nombre, String owner) {
         this.idEvaluacion = idEvaluacion;
         this.cantidadIntentos = cantidadIntentos;
         this.fechaLimite = fechaLimite;
@@ -97,6 +85,7 @@ public class Evaluacion implements Serializable {
         this.horaInicio = horaInicio;
         this.horaFinal = horaFinal;
         this.nombre = nombre;
+        this.owner = owner;
     }
 
     public Integer getIdEvaluacion() {
@@ -155,19 +144,19 @@ public class Evaluacion implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public Date getHoraInicio() {
+    public String getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(Date horaInicio) {
+    public void setHoraInicio(String horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public Date getHoraFinal() {
+    public String getHoraFinal() {
         return horaFinal;
     }
 
-    public void setHoraFinal(Date horaFinal) {
+    public void setHoraFinal(String horaFinal) {
         this.horaFinal = horaFinal;
     }
 
@@ -187,28 +176,28 @@ public class Evaluacion implements Serializable {
         this.nombre = nombre;
     }
 
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     public TipoEvaluacion getIdTipoEvaluacion() {
         return idTipoEvaluacion;
     }
 
     public void setIdTipoEvaluacion(TipoEvaluacion idTipoEvaluacion) {
         this.idTipoEvaluacion = idTipoEvaluacion;
-    }
-
-    public List<EvaluacionUsuario> getEvaluacionUsuarioList() {
-        return evaluacionUsuarioList;
-    }
-
-    public void setEvaluacionUsuarioList(List<EvaluacionUsuario> evaluacionUsuarioList) {
-        this.evaluacionUsuarioList = evaluacionUsuarioList;
-    }
-
-    public List<EvaluacionPreguntas> getEvaluacionPreguntasList() {
-        return evaluacionPreguntasList;
-    }
-
-    public void setEvaluacionPreguntasList(List<EvaluacionPreguntas> evaluacionPreguntasList) {
-        this.evaluacionPreguntasList = evaluacionPreguntasList;
     }
 
     @Override
