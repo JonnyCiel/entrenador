@@ -48,8 +48,9 @@ public class GradosController {
 
     @PostMapping("save")
     public String saveForm(@Valid @ModelAttribute Grados grado, BindingResult bindingResult, Model model,
-                           RedirectAttributes ra) {
+                           RedirectAttributes ra, Authentication authentication) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("usuario", userService.findByEmail(authentication.getName()));
             model.addAttribute("errores", bindingResult.getAllErrors());
             return "gradoForm";
         }
