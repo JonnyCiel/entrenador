@@ -7,6 +7,9 @@
     <link rel="stylesheet" th:href="@{'/vendor/font-awesome/css/font-awesome.min.css'}">
     <link rel="stylesheet" th:href="@{'/vendor/linearicons/style.css'}">
     <link rel="stylesheet" th:href="@{'/vendor/metisMenu/metisMenu.css'}">
+    <link rel="stylesheet" th:href="@{'/tinymce/skins/lightgray/content.min.css'}">
+    <link rel="stylesheet" th:href="@{'/tinymce/skins/lightgray/content.inline.min.css'}">
+    <link rel="stylesheet" th:href="@{'/tinymce/skins/lightgray/skin.min.css'}">
     <!-- MAIN CSS -->
     <link rel="stylesheet" th:href="@{'/css/main.css'}">
     <!-- GOOGLE FONTS -->
@@ -79,10 +82,11 @@
                                     <input hidden="hidden" th:field="*{intento}">
                                     <input hidden="hidden" th:field="*{pregunta}">
                                     <input hidden="hidden" th:field="*{preguntas}">
-                                    <h3 th:text="${preguntas.preguntas[0].texto}">1. What is the output of the below c
-                                        code?</h3>
+
+                                    <h3 th:text="${preguntas.preguntas[0].texto}"></h3>
+
                                     <pre th:classappend="${preguntas.preguntas[0].idEnunciado.texto.isEmpty() ? 'hidden' : ''}"
-                                         th:text="${preguntas.preguntas[0].idEnunciado.texto} + ' &#10' + ${preguntas.preguntas[0].idEnunciado.distractor}"></pre>
+                                         th:utext="${preguntas.preguntas[0].idEnunciado.texto} + ' &#10' + ${preguntas.preguntas[0].idEnunciado.distractor}"></pre>
 
                                     <br/>
                                     <input type="radio"
@@ -120,5 +124,9 @@
         </div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script th:src="@{'/vendor/bootstrap/js/bootstrap.min.js'}"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script th:src="@{'/tinymce/tinymce.min.js'}"></script>
 </body>
 </html>

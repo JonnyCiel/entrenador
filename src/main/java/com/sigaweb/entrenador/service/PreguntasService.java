@@ -12,6 +12,8 @@ public interface PreguntasService {
 
     void deletePregunta(Preguntas pregunta);
 
+    Preguntas findByName(String name);
+
     Page<Preguntas> findAllPregunta(Pageable page);
 
     Preguntas findById(Integer id);

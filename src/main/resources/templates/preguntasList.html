@@ -45,7 +45,6 @@
                                 <thead>
                                 <tr>
                                     <th>Texto</th>
-                                    <th>Enunciado</th>
                                     <th>Respuestas</th>
                                     <th>Tipo Pregunta</th>
                                     <th>Competencia y componente</th>
@@ -60,10 +59,6 @@
                                 <tbody>
                                 <tr th:each="pregunta : ${preguntas}">
                                     <td th:text="${pregunta.texto}"></td>
-                                    <td>
-                                        <a class="btn btn-default" data-toggle="modal" data-target="#large-modal"
-                                           th:href="@{'/enunciados/edit/' + ${pregunta.idEnunciado.idEnunciado}}">Ver</a>
-                                    </td>
                                     <td>
                                         <a th:href="@{'/respuestas/form/' +  ${pregunta.idPregunta}}"><i
                                                 class="fa fa-book fa-3x"></i></a>

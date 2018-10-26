@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario preguntas</title>
+    <link rel="stylesheet" th:href="@{'/vendor/bootstrap/css/bootstrap.min.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/font-awesome/css/font-awesome.min.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/linearicons/style.css'}">
+    <link rel="stylesheet" th:href="@{'/vendor/metisMenu/metisMenu.css'}">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" th:href="@{'/css/main.css'}">
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+    <!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="76x76" th:href="@{'/imgages/apple-icon.png'}">
+    <link rel="icon" type="image/png" sizes="96x96" th:href="@{'/imgages/favicon.png'}">
+</head>
+<body>
+
+<div id="wrapper">
+    <th:block th:include="header::header"></th:block>
+
+    <div id="main-content">
+        <div class="container-fluid">
+            <div class="section-heading">
+                <h1 class="page-title">Relación Grado - Pregunta</h1>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="panel-content">
+                        <h2 class="heading"><i class="fa fa-square"></i>Relaciones existentes</h2>
+
+                        <div class="alert alert-danger" th:if="${errores != null}">
+                            <ul>
+                                <li th:each="err : ${errores}" th:text="${err}"></li>
+                            </ul>
+                        </div>
+
+                        <div  th:if="${not #lists.isEmpty(relaciooones)}">
+                           <span th:each="rela : ${relaciooones}" th:text="${rela.idGrado.texto}"
+                                 class="badge badge-info"></span>
+                        </div>
+
+                        <div  th:if="${#lists.isEmpty(relaciooones)}">
+                           <span class="badge badge-info">No hay relaciones o no se ha realizado búsqueda</span>
+                        </div>
+                        <br> <br>
+
+                        <h2 class="heading"><i class="fa fa-square"></i>Generar relación</h2>
+                        <form id="basic-form" th:action="@{'/regradopregunta/buscar'}" th:object="${relacion}"
+                        >
+                            <div class="form-group">
+                                <label>Relacionar</label>
+                                <input hidden="hidden" th:field="*{idPregGrado}">
+
+                                <div class="form-group">
+                                    <label>Buscar pregunta</label>
+                                    <input type="text" th:name="texto" placeholder="Ingresa la pregunta completa"
+                                           class="form-control" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Buscar</button>
+                        </form>
+
+
+                        <form id="basic-form2" th:action="@{'/regradopregunta/save'}" th:object="${relacion}"
+                              method="post">
+                            <div class="form-group">
+                                <label>Relacionar</label>
+                                <input hidden="hidden" th:field="*{idPregGrado}">
+
+                                <div class="form-group">
+                                    <label class="control-label">Grado</label>
+                                    <select th:field="*{idGrado}" class="form-control">
+                                        <option th:each="grado : ${grados}"
+                                                th:value="${grado.idGrado}"
+                                                th:text="${grado.texto}"></option>
+                                    </select>
+                                </div>
+
+
+                                <label>Pregunta</label>
+                                <div class="alert alert-success" th:if="${search != null}">
+                                    <input hidden="hidden" th:name="texto" th:value="${search.texto}">
+                                    <ul>
+                                        <li th:name="texto" th:text="${search.texto}"></li>
+                                    </ul>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label>Estado</label>
+                                            <br/>
+                                            <label class="fancy-radio">
+                                                <input type="radio" th:field="*{estado}" th:value="1" required
+                                                       data-parsley-errors-container="#error-radio">
+                                                <span><i></i>Activa</span>
+                                            </label>
+                                            <label class="fancy-radio">
+                                                <input type="radio" th:field="*{estado}" th:value="2">
+                                                <span><i></i>Inactiva</span>
+                                            </label>
+                                            <p id="error-radio"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script th:src="@{'/vendor/bootstrap/js/bootstrap.min.js'}"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script th:src="@{'/tinymce/tinymce.min.js'}"></script>
+<script>
+    tinymce.init({
+        selector: '#enunciado, #distractor',
+        language: 'es',
+        branding: false,
+        plugins: "textcolor, table lists code, image",
+        toolbar: " undo redo | sizeselect fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify \n\
+                    | bullist numlist outdent indent | forecolor backcolor table code, image",
+        fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt"
+    });
+</script>
+</body>
+</html>

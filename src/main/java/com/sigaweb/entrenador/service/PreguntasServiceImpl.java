@@ -27,6 +27,11 @@ public class PreguntasServiceImpl implements PreguntasService {
     }
 
     @Override
+    public Preguntas findByName(String name) {
+        return preguntasRepository.findByTextoEquals(name);
+    }
+
+    @Override
     public Page<Preguntas> findAllPregunta(Pageable page) {
         return preguntasRepository.findAll(page);
     }

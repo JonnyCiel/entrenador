@@ -42,14 +42,16 @@
                             <div class="form-group">
                                 <label>Enunciado</label>
                                 <input hidden="hidden" th:field="*{idPregunta}">
-                                <input type="text" th:field="*{idEnunciado.texto}" class="form-control"
-                                       placeholder="Opcional">
+                                <textarea id="enunciado" type="text" th:field="*{idEnunciado.texto}"
+                                          class="form-control"
+                                          placeholder="Opcional"></textarea>
                                 <p th:if="${#fields.hasErrors('texto')}" th:errors="*{idEnunciado.texto}"></p>
                             </div>
                             <div class="form-group">
                                 <label>Distractor</label>
-                                <input type="text" th:field="*{idEnunciado.distractor}" class="form-control"
-                                       placeholder="Opcional">
+                                <textarea id="distractor" type="text" th:field="*{idEnunciado.distractor}"
+                                          class="form-control"
+                                          placeholder="Opcional"></textarea>
                                 <p th:if="${#fields.hasErrors('idEnunciado.distractor')}"
                                    th:errors="*{idEnunciado.distractor}"></p>
                             </div>
@@ -153,7 +155,8 @@
                             </div>
 
                             <div class="alert alert-info" role="alert">
-                                <i class="fa fa-bell-o" aria-hidden="true"></i>Podrás añadir respuestas a esta pregunta desde la lista de preguntas
+                                <i class="fa fa-bell-o" aria-hidden="true"></i>Podrás añadir respuestas a esta pregunta
+                                desde la lista de preguntas
                             </div>
                             <br>
                             <button type="submit" class="btn btn-primary">Enviar</button>
@@ -172,5 +175,17 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script th:src="@{'/vendor/bootstrap/js/bootstrap.min.js'}"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script th:src="@{'/tinymce/tinymce.min.js'}"></script>
+<script>
+    tinymce.init({
+        selector: '#enunciado, #distractor',
+        language: 'es',
+        branding: false,
+        plugins: "textcolor, table lists code, image",
+        toolbar: " undo redo | sizeselect fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify \n\
+                    | bullist numlist outdent indent | forecolor backcolor table code, image",
+        fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt"
+    });
+</script>
 </body>
 </html>

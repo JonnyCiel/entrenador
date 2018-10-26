@@ -50,6 +50,8 @@ public class AreasController {
     @PostMapping("save")
     public String saveForm(@Valid @ModelAttribute Areas area, BindingResult bindingResult, Model model,
                            RedirectAttributes ra, Authentication authentication) {
+
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("usuario", userService.findByEmail(authentication.getName()));
             model.addAttribute("errores", bindingResult.getAllErrors());

@@ -5,6 +5,10 @@
  */
 package com.sigaweb.entrenador.entities;
 
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -18,8 +22,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -29,6 +31,7 @@ import javax.persistence.TemporalType;
  * @author Jonny
  */
 @Entity
+@Indexed
 @Table(name = "preguntas")
 public class Preguntas implements Serializable {
 
@@ -40,6 +43,7 @@ public class Preguntas implements Serializable {
     private Integer idPregunta;
     @Basic(optional = false)
     @Lob
+    @Field(analyze= Analyze.NO)
     @Column(name = "texto")
     private String texto;
     @Column(name = "nivel")

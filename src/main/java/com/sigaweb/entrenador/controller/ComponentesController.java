@@ -64,8 +64,10 @@ public class ComponentesController {
 
         if (componente.getIdArea() == null){
             model.addAttribute("usuario", userService.findByEmail(authentication.getName()));
-            model.addAttribute("errores", "Selecciona un área. Si no hay disponibles crea uno primero");
+            model.addAttribute("errores", "Selecciona un área. Si no hay disponibles, crea una primero");
             model.addAttribute("areas", areasService.findAllByEstado((short) 1));
+            model.addAttribute("componente", componente);
+            return "componentesForm";
         }
 
         componentesService.saveComponentes(componente);

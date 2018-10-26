@@ -132,6 +132,16 @@ public class PreguntasController {
             pregunta.getIdEnunciado().setEstado((short) 2);
         }
 
+        if (pregunta.getIdTipoPregunta() == null) {
+            model.addAttribute("usuario", userService.findByEmail(authentication.getName()));
+            formError("Elige un tipo de pregunta. Si no hay, crea uno primero.", model, pregunta);
+            return "preguntasForm";
+        }else if (pregunta.getIdCompComponente() == null){
+            model.addAttribute("usuario", userService.findByEmail(authentication.getName()));
+            formError("Elige una competencia y componente. Si no hay, crea una primero.", model, pregunta);
+            return "preguntasForm";
+        }
+
         enunciadoService.saveEnunciados(pregunta.getIdEnunciado());
         pregunta.setIdEnunciado(pregunta.getIdEnunciado());
         preguntasService.savePregunta(pregunta);
@@ -141,5 +151,11 @@ public class PreguntasController {
         return "redirect:/preguntas/index";
     }
 
+    private void formError(String mensaje, Model model, Preguntas pregunta){
+        model.addAttribute("pregunta", pregunta);
+        model.addAttribute("errores", mensaje);
+        model.addAttribute("tipopregunta", tipoPreguntasService.findAllByEstado((short) 1));
+        model.addAttribute("competenciacomponente", competenciaComponenteService.findAllByEstado((short) 1));
+    }
 
 }

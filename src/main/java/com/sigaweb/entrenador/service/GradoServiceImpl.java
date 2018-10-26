@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -54,6 +55,11 @@ public class GradoServiceImpl implements GradoService {
         } catch (HibernateError error) {
             return error.getLocalizedMessage();
         }
+    }
+
+    @Override
+    public List<Grados> findAll() {
+        return gradoRepository.findAll();
     }
 
     @Override
