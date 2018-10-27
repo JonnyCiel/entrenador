@@ -34,10 +34,10 @@ public class PreguntaGrado implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
     @JoinColumn(name = "id_grado", referencedColumnName = "id_grado")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Grados idGrado;
     @JoinColumn(name = "id_pregunta", referencedColumnName = "id_pregunta")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Preguntas idPregunta;
 
     public PreguntaGrado() {

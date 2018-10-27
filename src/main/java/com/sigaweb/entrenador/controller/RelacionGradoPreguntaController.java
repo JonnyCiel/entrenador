@@ -1,6 +1,7 @@
 package com.sigaweb.entrenador.controller;
 
 import com.sigaweb.entrenador.entities.Areas;
+import com.sigaweb.entrenador.entities.Grados;
 import com.sigaweb.entrenador.entities.PreguntaGrado;
 import com.sigaweb.entrenador.entities.Preguntas;
 import com.sigaweb.entrenador.repository.PreguntasSearch;
@@ -104,7 +105,8 @@ public class RelacionGradoPreguntaController {
                 model.addAttribute("errores", "Esta relación ya existe, elige otro grado");
                 model.addAttribute("grados", gradoService.findAll());
                 model.addAttribute("relacion", preguntaGrado);
-
+                model.addAttribute("search", preguntasService.findByName(q));
+                model.addAttribute("relaciooones", relacionGradoService.findAllByIdPregunta(preguntasService.findByName(q).getIdPregunta()));
                 return "relacionPreguntasForm";
             }
         }
@@ -115,7 +117,7 @@ public class RelacionGradoPreguntaController {
             model.addAttribute("errores", bindingResult.getAllErrors());
             model.addAttribute("grados", gradoService.findAll());
             model.addAttribute("relacion", preguntaGrado);
-
+            model.addAttribute("relaciooones", relacionGradoService.findAllByIdPregunta(preguntasService.findByName(q).getIdPregunta()));
             return "relacionPreguntasForm";
         }
 
@@ -124,7 +126,7 @@ public class RelacionGradoPreguntaController {
             model.addAttribute("errores", "No buscaste ninguna pregunta");
             model.addAttribute("grados", gradoService.findAll());
             model.addAttribute("relacion", preguntaGrado);
-
+            model.addAttribute("relaciooones", relacionGradoService.findAllByIdPregunta(preguntasService.findByName(q).getIdPregunta()));
             return "relacionPreguntasForm";
         }
 
@@ -132,5 +134,66 @@ public class RelacionGradoPreguntaController {
 
         ra.addFlashAttribute("mensaje", "Se ha guardado con éxito la relación");
         return "redirect:/regradopregunta/index";
+    }
+
+
+    @GetMapping("formRe/{id}")
+    public String relaForm(@PathVariable("id") Integer id, Authentication authentication, Model model) {
+        model.addAttribute("usuario", userService.findByEmail(authentication.getName()));
+        model.addAttribute("grados", gradoService.findAll());
+        model.addAttribute("pregunta", preguntasService.findById(id));
+        model.addAttribute("relacion", new PreguntaGrado());
+        model.addAttribute("pregID", id);
+        model.addAttribute("relaciooones",relacionGradoService.findAllByIdPregunta(id));
+
+
+        return "relacionPreguntasFormFromList";
+    }
+
+    @PostMapping("saveFromList/{id}")
+    public String saveFromList(@PathVariable("id") Integer id, @Valid @ModelAttribute PreguntaGrado preguntaGrado,  Model model,
+                               RedirectAttributes ra, Authentication authentication){
+
+        System.out.println(id);
+        preguntaGrado.setIdPregunta(preguntasService.findById(id));
+        List<PreguntaGrado> relacioones = relacionGradoService.findAllByIdPregunta(id);
+
+        for (PreguntaGrado relacioone : relacioones) {
+            if (relacioone.getIdGrado().getIdGrado().equals(preguntaGrado.getIdGrado().getIdGrado())) {
+                model.addAttribute("usuario", userService.findByEmail(authentication.getName()));
+                model.addAttribute("errores", "Esta relación ya existe, elige otro grado");
+                model.addAttribute("grados", gradoService.findAll());
+                model.addAttribute("relacion", preguntaGrado);
+                model.addAttribute("pregID", id);
+                model.addAttribute("pregunta", preguntaGrado.getIdPregunta());
+                model.addAttribute("relaciooones",relacionGradoService.findAllByIdPregunta(id));
+
+                return "relacionPreguntasFormFromList";
+            }
+        }
+
+        relacionGradoService.saveRelacionGrado(preguntaGrado);
+
+        ra.addFlashAttribute("mensaje", "Se ha guardado con éxito la relación");
+        return "redirect:/regradopregunta/index";
+    }
+
+
+    @GetMapping("delete/{id}")
+    public String deleteArea(@PathVariable("id") Integer id, RedirectAttributes ra) {
+        relacionGradoService.deleteRelacionGrado(relacionGradoService.findById(id));
+        ra.addFlashAttribute("mensaje", "Se ha eliminado con éxito");
+        return "redirect:/regradopregunta/index";
+    }
+
+    @GetMapping("edit/{id}")
+    public String editArea(@PathVariable("id") Integer id, Model model, Authentication authentication) {
+        PreguntaGrado relacion = relacionGradoService.findById(id);
+        model.addAttribute("relacion", relacionGradoService.findById(id));
+        model.addAttribute("usuario", userService.findByEmail(authentication.getName()));
+        model.addAttribute("search", relacion.getIdPregunta());
+        model.addAttribute("grados", gradoService.findAll());
+        model.addAttribute("relaciooones", relacionGradoService.findAllByIdPregunta(relacion.getIdPregunta().getIdPregunta()));
+        return "relacionPreguntasForm";
     }
 }

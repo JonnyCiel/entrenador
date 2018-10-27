@@ -46,6 +46,7 @@
                                 <tr>
                                     <th>Texto</th>
                                     <th>Respuestas</th>
+                                    <th>Grados</th>
                                     <th>Tipo Pregunta</th>
                                     <th>Competencia y componente</th>
                                     <th>Nivel</th>
@@ -61,6 +62,10 @@
                                     <td th:text="${pregunta.texto}"></td>
                                     <td>
                                         <a th:href="@{'/respuestas/form/' +  ${pregunta.idPregunta}}"><i
+                                                class="fa fa-book fa-3x"></i></a>
+                                    </td>
+                                    <td>
+                                        <a th:href="@{'/regradopregunta/formRe/' +  ${pregunta.idPregunta}}"><i
                                                 class="fa fa-book fa-3x"></i></a>
                                     </td>
                                     <td th:text="${pregunta.idTipoPregunta.nombre}"></td>

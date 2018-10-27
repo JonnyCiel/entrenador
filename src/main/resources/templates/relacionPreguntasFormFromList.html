@@ -48,28 +48,13 @@
                         </div>
                         <br> <br>
 
-                        <h2 class="heading"><i class="fa fa-square"></i>Generar relación</h2>
-                        <form id="basic-form" th:action="@{'/regradopregunta/buscar'}" th:object="${relacion}"
-                        >
-                            <div class="form-group">
-                                <label>Relacionar</label>
-                                <input hidden="hidden" th:field="*{idPregGrado}">
-
-                                <div class="form-group">
-                                    <label>Buscar pregunta</label>
-                                    <input type="text" th:name="texto" placeholder="Ingresa la pregunta completa"
-                                           class="form-control" required>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Buscar</button>
-                        </form>
-
-
-                        <form id="basic-form2" th:action="@{'/regradopregunta/save'}" th:object="${relacion}"
+                        <form id="basic-form" th:action="@{'/regradopregunta/saveFromList/'+ ${pregID}}" th:object="${relacion}"
                               method="post">
                             <div class="form-group">
                                 <label>Relacionar</label>
                                 <input hidden="hidden" th:field="*{idPregGrado}">
+                                <input  hidden="hidden" th:field="*{idPregunta}">
+
 
                                 <div class="form-group">
                                     <label class="control-label">Grado</label>
@@ -82,10 +67,9 @@
 
 
                                 <label>Pregunta</label>
-                                <div class="alert alert-success" th:if="${search != null}">
-                                    <input hidden="hidden" th:name="texto" th:value="${search.texto}">
+                                <div class="alert alert-success" th:if="${pregunta != null}">
                                     <ul>
-                                        <li th:name="texto" th:text="${search.texto}"></li>
+                                        <li th:name="texto" th:text="${pregunta.texto}"></li>
                                     </ul>
                                 </div>
 
@@ -126,5 +110,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script th:src="@{'/vendor/bootstrap/js/bootstrap.min.js'}"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</script>
 </body>
 </html>
